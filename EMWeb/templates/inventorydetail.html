@@ -1,0 +1,502 @@
+{% extends 'base.html' %}
+{% block title %}- Inventory detail{% endblock title %}
+{% load static %}
+{% load humanize %}
+{% block CSSBlock %}
+    <style>
+        .box{
+            color: #fff;
+            padding: 20px;
+            display: none;
+            margin-top: 20px;
+        }
+    </style>
+    <link rel="stylesheet" href="{% static 'posAPP/assets/material-admin/css/demo/style.css' %}?{% now "U" %}">
+{% endblock CSSBlock %}
+
+
+{% block content %}
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+        <h1>Inventory Details</h1>
+{#        <form action="" method="post">#}
+{#            {% csrf_token %}#}
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <select id="color-selector" class="form-control">
+                        <option>Choose Item to Show</option>
+                        <option value="cell">Cell</option>
+                        <option value="bms">BMS</option>
+                        <option value="battery_pack">Complete Battery Pack</option>
+                        <option value="bike_pack">Complete Bike Conversion Kit</option>
+                        <option value="bike_accessory">Bike Accessory</option>
+                        <option value="battery_accessory">Battery Accessory</option>
+                    </select>
+                </div>
+            </div>
+            <!-- Cell Detail -->
+            <div class="cell box" style="display: contents;">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Cell Inventory Detail</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped" id="table">
+                                <thead class="thead-dark">
+                                    <tr class="header">
+                                        <th>Cell Type</th>
+                                        <th>Quantity</th>
+                                        <th>Price</th>
+                                        <th>Invoice No</th>
+                                        <th>Description (if any)</th>
+                                        <th>Added by</th>
+                                        <th>Date Purchase</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <tr class="header">
+                                        <th>Cell Type</th>
+                                        <th>Quantity</th>
+                                        <th>Price</th>
+                                        <th>Invoice No</th>
+                                        <th>Description (if any)</th>
+                                        <th>Added by</th>
+                                        <th>Date Purchase</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </tr>
+                                </tfoot>
+                                <tbody>
+                                    {% for count in Cell_detail %}
+                                        <tr>
+                                            <td>{{count.Cell_Type}}</td>
+                                            <td>{{count.Cell_qty|floatformat:"0"}}</td>
+                                            <td>{{count.Cell_price|floatformat:"2"|intcomma }}</td>
+                                            <td>{{count.CellInvoiceNo}}</td>
+                                            <td>{{count.CellDescription}}</td>
+                                            <td>{{count.User}}</td>
+                                            <td>{{count.DatePur|date:"M d, Y"}}</td>
+                                            <td class="text-center">
+                                                <button class="mdc-button mdc-button--raised p-1 icon-button filled-button--light mdc-ripple-upgraded edit-data" title="Edit">
+                                                    <a href='/updatecell/{{ count.id }}/' style="color: inherit; text-decoration: none"><i class="material-icons mdc-button__icon">edit</i></a>
+                                                </button>
+                                                <button class="mdc-button mdc-button--raised p-1 icon-button filled-button--danger mdc-ripple-upgraded delete-data" type="button" data-id="{{ count.id }}" data-code="{{ count.CellInvoiceNo }}" title="Delete">
+                                                    <a href='/deletecell/{{ count.id }}' style="color: inherit; text-decoration: none"><i class="material-icons mdc-button__icon">deleteoutline</i></a>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Cell Detail -->
+
+            <!-- BMS Detail -->
+            <div class="bms box" style="display: contents;">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Cell Inventory Detail</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped" id="dataTable">
+                                <thead class="thead-dark">
+                                    <tr class="header">
+                                        <th>BMS Specification</th>
+                                        <th>BMS Type</th>
+                                        <th>Quantity</th>
+                                        <th>Price</th>
+                                        <th>Invoice No</th>
+                                        <th>Description (if any)</th>
+                                        <th>Added by</th>
+                                        <th>Date Purchase</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <tr class="header">
+                                        <th>BMS Specification</th>
+                                        <th>BMS Type</th>
+                                        <th>Quantity</th>
+                                        <th>Price</th>
+                                        <th>Invoice No</th>
+                                        <th>Description (if any)</th>
+                                        <th>Added by</th>
+                                        <th>Date Purchase</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </tr>
+                                </tfoot>
+                                <tbody>
+                                    {% for count in BMS_detail %}
+                                        <tr>
+                                            <td>{{count.BMS_Type}}</td>
+                                            <td>{{count.BMSType}}</td>
+                                            <td>{{count.BMS_qty|floatformat:"0"}}</td>
+                                            <td>{{count.BMS_price|floatformat:"2"|intcomma }}</td>
+                                            <td>{{count.BMSInvoiceNo}}</td>
+                                            <td>{{count.BMSDescription}}</td>
+                                            <td>{{count.User}}</td>
+                                            <td>{{count.DatePur|date:"M d, Y"}}</td>
+                                            <td class="text-center">
+                                                <button class="mdc-button mdc-button--raised p-1 icon-button filled-button--light mdc-ripple-upgraded edit-data" title="Edit">
+                                                    <a href='/updatebms/{{ count.id }}/' style="color: inherit; text-decoration: none"><i class="material-icons mdc-button__icon">edit</i></a>
+                                                </button>
+                                                <button class="mdc-button mdc-button--raised p-1 icon-button filled-button--danger mdc-ripple-upgraded delete-data" type="button" data-id="{{ count.id }}" data-code="{{ bat.Manf_ID }}" title="Delete">
+                                                    <a href='/deletebms/{{ count.id }}' style="color: inherit; text-decoration: none"><i class="material-icons mdc-button__icon">deleteoutline</i></a>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- BMS Detail -->
+
+            <!-- Battery-Pack Detail -->
+            <div class="battery_pack box" style="display: contents;">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Complete Battery Pack Inventory Detail</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped" id="dataTable">
+                                <thead class="thead-dark">
+                                    <tr class="header">
+                                        <th>Battery Type</th>
+                                        <th>Quantity</th>
+                                        <th>Price</th>
+                                        <th>Invoice No</th>
+                                        <th>Description (if any)</th>
+                                        <th>Added by</th>
+                                        <th>Date Purchase</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <tr class="header">
+                                        <th>Battery Type</th>
+                                        <th>Quantity</th>
+                                        <th>Price</th>
+                                        <th>Invoice No</th>
+                                        <th>Description (if any)</th>
+                                        <th>Added by</th>
+                                        <th>Date Purchase</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </tr>
+                                </tfoot>
+                                <tbody>
+                                    {% for count in Battery_pack %}
+                                        <tr>
+                                            <td>{{count.Battery_pack}}</td>
+                                            <td>{{count.Battery_pack_qty|floatformat:"0"}}</td>
+                                            <td>{{count.Battery_pack_price|floatformat:"2"|intcomma }}</td>
+                                            <td>{{count.BatteryInvoiceNo}}</td>
+                                            <td>{{count.BatteryDescription}}</td>
+                                            <td>{{count.User}}</td>
+                                            <td>{{count.DatePur|date:"M d, Y"}}</td>
+                                            <td class="text-center">
+                                                <button class="mdc-button mdc-button--raised p-1 icon-button filled-button--light mdc-ripple-upgraded edit-data" title="Edit">
+                                                    <a href='/updatebattery/{{ count.id }}/' style="color: inherit; text-decoration: none"><i class="material-icons mdc-button__icon">edit</i></a>
+                                                </button>
+                                                <button class="mdc-button mdc-button--raised p-1 icon-button filled-button--danger mdc-ripple-upgraded delete-data" type="button" data-id="{{ count.id }}" data-code="{{ bat.Manf_ID }}" title="Delete">
+                                                    <a href='/deletebattery/{{ count.id }}' style="color: inherit; text-decoration: none"><i class="material-icons mdc-button__icon">deleteoutline</i></a>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Battery-Pack Detail -->
+
+            <!-- Bike-Conversion-Kit Detail -->
+            <div class="bike_pack box" style="display: contents;">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Bike Conversion Kit Inventory Detail</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped" id="dataTable">
+                                <thead class="thead-dark">
+                                    <tr class="header">
+                                        <th>Bike Conversion Type</th>
+                                        <th>Quantity</th>
+                                        <th>Price</th>
+                                        <th>Invoice No</th>
+                                        <th>Description (if any)</th>
+                                        <th>Added by</th>
+                                        <th>Date Purchase</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <tr class="header">
+                                        <th>Bike Conversion Type</th>
+                                        <th>Quantity</th>
+                                        <th>Price</th>
+                                        <th>Invoice No</th>
+                                        <th>Description (if any)</th>
+                                        <th>Added by</th>
+                                        <th>Date Purchase</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </tr>
+                                </tfoot>
+                                <tbody>
+                                    {% for count in Bike_pack %}
+                                        <tr>
+                                            <td>{{count.Bike_pack}}</td>
+                                            <td>{{count.Bike_pack_qty|floatformat:"0"}}</td>
+                                            <td>{{count.Bike_pack_price|floatformat:"2"|intcomma }}</td>
+                                            <td>{{count.BikeInvoiceNo}}</td>
+                                            <td>{{count.BikeDescription}}</td>
+                                            <td>{{count.User}}</td>
+                                            <td>{{count.DatePur|date:"M d, Y"}}</td>
+                                            <td class="text-center">
+                                                <button class="mdc-button mdc-button--raised p-1 icon-button filled-button--light mdc-ripple-upgraded edit-data" title="Edit">
+                                                    <a href='/updatebike/{{ count.id }}/' style="color: inherit; text-decoration: none"><i class="material-icons mdc-button__icon">edit</i></a>
+                                                </button>
+                                                <button class="mdc-button mdc-button--raised p-1 icon-button filled-button--danger mdc-ripple-upgraded delete-data" type="button" data-id="{{ count.id }}" data-code="{{ bat.Manf_ID }}" title="Delete">
+                                                    <a href='/deletebike/{{ count.id }}' style="color: inherit; text-decoration: none"><i class="material-icons mdc-button__icon">deleteoutline</i></a>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Bike-Conversion-Kit Detail -->
+
+            <!-- Bike-Accessories Detail -->
+            <div class="bike_accessory box" style="display: contents;">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Bike Accessories Inventory Detail</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped" id="dataTable">
+                                <thead class="thead-dark">
+                                    <tr class="header">
+                                        <th>Motor Type</th>
+                                        <th>Motor Quantity</th>
+                                        <th>Motor Price</th>
+                                        <th>Controller Type</th>
+                                        <th>Controller Quantity</th>
+                                        <th>Controller Price</th>
+                                        <th>Throttle Quantity</th>
+                                        <th>Throttle Price</th>
+                                        <th>Brakes Quantity</th>
+                                        <th>Brakes Price</th>
+                                        <th>Spokes Quantity</th>
+                                        <th>Spokes Price</th>
+                                        <th>Invoice No</th>
+                                        <th>Description (if any)</th>
+                                        <th>Added by</th>
+                                        <th>Date Purchase</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th>Motor Type</th>
+                                        <th>Motor Quantity</th>
+                                        <th>Motor Price</th>
+                                        <th>Controller Type</th>
+                                        <th>Controller Quantity</th>
+                                        <th>Controller Price</th>
+                                        <th>Throttle Quantity</th>
+                                        <th>Throttle Price</th>
+                                        <th>Brakes Quantity</th>
+                                        <th>Brakes Price</th>
+                                        <th>Spokes Quantity</th>
+                                        <th>Spokes Price</th>
+                                        <th>Invoice No</th>
+                                        <th>Description (if any)</th>
+                                        <th>Added by</th>
+                                        <th>Date Purchase</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </tr>
+                                </tfoot>
+                                <tbody>
+                                    {% for count in Bike_detail %}
+                                        <tr>
+                                            <td>{{count.motor_type}}</td>
+                                            <td>{{count.motor_qty|floatformat:"0"}}</td>
+                                            <td>{{count.motor_price|floatformat:"2"|intcomma }}</td>
+                                            <td>{{count.controller_type}}</td>
+                                            <td>{{count.controller_qty|floatformat:"0"}}</td>
+                                            <td>{{count.controller_price|floatformat:"2"|intcomma }}</td>
+                                            <td>{{count.throttle|floatformat:"0"}}</td>
+                                            <td>{{count.throttle_price|floatformat:"2"|intcomma }}</td>
+                                            <td>{{count.brake|floatformat:"0"}}</td>
+                                            <td>{{count.brake_price|floatformat:"2"|intcomma }}</td>
+                                            <td>{{count.spokes|floatformat:"0"}}</td>
+                                            <td>{{count.spokes_price|floatformat:"2"|intcomma }}</td>
+                                            <td>{{count.Bike_InvoiceNo}}</td>
+                                            <td>{{count.Bike_Description}}</td>
+                                            <td>{{count.User}}</td>
+                                            <td>{{count.DatePur|date:"M d, Y"}}</td>
+                                            <td class="text-center">
+                                                <button class="mdc-button mdc-button--raised p-1 icon-button filled-button--light mdc-ripple-upgraded edit-data" title="Edit">
+                                                    <a href='/updateBikeAccess/{{ count.id }}/' style="color: inherit; text-decoration: none"><i class="material-icons mdc-button__icon">edit</i></a>
+                                                </button>
+                                                <button class="mdc-button mdc-button--raised p-1 icon-button filled-button--danger mdc-ripple-upgraded delete-data" type="button" data-id="{{ count.id }}" data-code="{{ bat.Manf_ID }}" title="Delete">
+                                                    <a href='/deletebikeA/{{ count.id }}' style="color: inherit; text-decoration: none"><i class="material-icons mdc-button__icon">deleteoutline</i></a>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Bike-Accessories Detail -->
+
+            <!-- Battery-Accessories Detail -->
+            <div class="battery_accessory box" style="display: contents;">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Battery Accessories Inventory Detail</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped" id="dataTable" width="100%" cellspacing="0">
+                                <thead class="thead-dark">
+                                    <tr class="header">
+                                        <th>Enclosure Quantity</th>
+                                        <th>Enclosure Price</th>
+                                        <th>Breaker Quantity</th>
+                                        <th>Breaker Price</th>
+                                        <th>Display Quantity</th>
+                                        <th>Display Price</th>
+                                        <th>B_P_C Quantity</th>
+                                        <th>B_P_C Price</th>
+                                        <th>Wire Quantity</th>
+                                        <th>Wire Price</th>
+                                        <th>Thimble Quantity</th>
+                                        <th>Thimble Price</th>
+                                        <th>Invoice No</th>
+                                        <th>Description (if any)</th>
+                                        <th>Added by</th>
+                                        <th>Date Purchase</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th>Enclosure Quantity</th>
+                                        <th>Enclosure Price</th>
+                                        <th>Breaker Quantity</th>
+                                        <th>Breaker Price</th>
+                                        <th>Display Quantity</th>
+                                        <th>Display Price</th>
+                                        <th>B_P_C Quantity</th>
+                                        <th>B_P_C Price</th>
+                                        <th>Wire Quantity</th>
+                                        <th>Wire Price</th>
+                                        <th>Thimble Quantity</th>
+                                        <th>Thimble Price</th>
+                                        <th>Invoice No</th>
+                                        <th>Description (if any)</th>
+                                        <th>Added by</th>
+                                        <th>Date Purchase</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </tr>
+                                </tfoot>
+                                <tbody>
+                                    {% for count in Battery_detail %}
+                                        <tr>
+                                            <td>{{count.enclosure|floatformat:"0"}}</td>
+                                            <td>{{count.enclosure_price|floatformat:"2"|intcomma }}</td>
+                                            <td>{{count.breaker|floatformat:"0"}}</td>
+                                            <td>{{count.breaker_price|floatformat:"2"|intcomma }}</td>
+                                            <td>{{count.display|floatformat:"0"}}</td>
+                                            <td>{{count.display_price|floatformat:"2"|intcomma }}</td>
+                                            <td>{{count.B_Connector|floatformat:"0"}}</td>
+                                            <td>{{count.B_Connector_price|floatformat:"2"|intcomma }}</td>
+                                            <td>{{count.wire|floatformat:"0"}}</td>
+                                            <td>{{count.wire_price|floatformat:"2"|intcomma }}</td>
+                                            <td>{{count.thimble|floatformat:"0"}}</td>
+                                            <td>{{count.thimble_price|floatformat:"2"|intcomma }}</td>
+                                            <td>{{count.Battery_InvoiceNo}}</td>
+                                            <td>{{count.Battery_Description}}</td>
+                                            <td>{{count.User}}</td>
+                                            <td>{{count.DatePur|date:"M d, Y"}}</td>
+                                            <td class="text-center">
+                                                <button class="mdc-button mdc-button--raised p-1 icon-button filled-button--light mdc-ripple-upgraded edit-data" title="Edit">
+                                                    <a href='/updateBatteryAccess/{{ count.id }}/' style="color: inherit; text-decoration: none"><i class="material-icons mdc-button__icon">edit</i></a>
+                                                </button>
+                                                <button class="mdc-button mdc-button--raised p-1 icon-button filled-button--danger mdc-ripple-upgraded delete-data" type="button" data-id="{{ count.id }}" data-code="{{ bat.Manf_ID }}" title="Delete">
+                                                    <a href='/deletebatteryA/{{ count.id }}' style="color: inherit; text-decoration: none"><i class="material-icons mdc-button__icon">deleteoutline</i></a>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Battery-Accessories Detail -->
+
+
+    </div>
+
+    <!-- /.container-fluid -->
+{% endblock content%}
+{% block ScriptBlock %}
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#color-selector").change(function () {
+                $(this).find("option:selected").each(function () {
+                    var optionValue = $(this).attr("value");
+                    if (optionValue) {
+                        $(".box")
+                            .not("." + optionValue)
+                            .hide();
+                        $("." + optionValue).show();
+                    } else {
+                        $(".box").hide();
+                    }
+                });
+            }).change();
+        });
+        var $rows = $('#table tr');
+            $('#search').keyup(function() {
+                var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+                $rows.show().filter(function() {
+                    var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+                    return !~text.indexOf(val);
+                }).hide();
+        });
+    </script>
+{% endblock ScriptBlock %}

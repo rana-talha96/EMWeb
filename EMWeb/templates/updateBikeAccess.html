@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% block title %}- Add Device {% endblock title %}
+{% load static %}
+
+{% block content %}
+
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+        <h6 class="m-0 font-weight-bold text-primary">Bike Kit Detail Agianst ID = {{ bike.id }}</h6>
+        <form action="../../updateBikeAccessrecord/{{ bike.id }}" method="post">
+            {% csrf_token %}
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <label for="motor_type"></label>
+                    <select class="form-control" id="motor_type" name="motor_type">
+                        <option>{{ bike.motor_type }}</option>
+                        {% for motor in motor %}
+                            <option>{{ motor }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-sm-6 mb-3 mb-sm-0" style="display: flex; margin-top: 24px;">
+                    <label for="motor_qty"></label>
+                    <input type="float" class="form-control form-control-user" id="motor_qty" name="motor_qty"
+                           placeholder="Motor Quantity" value="{{ bike.motor_qty|floatformat:"0" }}">
+                    <label for="motor_price"></label>
+                    <input type="float" class="form-control form-control-user" id="motor_price" name="motor_price"
+                           placeholder="Motor Price" value="{{ bike.motor_price|floatformat:"0" }}">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <label for="controller_type"></label>
+                    <select class="form-control" id="controller_type" name="controller_type">
+                        <option>{{ bike.controller_type }}</option>
+                        {% for controller in controller %}
+                            <option>{{ controller }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-sm-6 mb-3 mb-sm-0" style="display: flex; margin-top: 24px;">
+                    <label for="controller_qty"></label>
+                    <input type="float" class="form-control form-control-user" id="controller_qty" name="controller_qty"
+                           placeholder="Controller Quantity" value="{{ bike.controller_qty|floatformat:"0" }}">
+                    <label for="controller_price"></label>
+                    <input type="float" class="form-control form-control-user" id="controller_price" name="controller_price"
+                           placeholder="Controller Price" value="{{ bike.controller_price|floatformat:"0" }}">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-6 mb-3 mb-sm-0" style="display: flex; margin-top: 24px;">
+                    <label for="throttle"></label>
+                    <input type="float" class="form-control form-control-user" id="throttle" name="throttle"
+                           placeholder="Throttle Quantity" value="{{ bike.throttle|floatformat:"0" }}">
+                    <label for="throttle_price"></label>
+                    <input type="float" class="form-control form-control-user" id="throttle_price" name="throttle_price"
+                           placeholder="Throttle Price" value="{{ bike.throttle_price|floatformat:"0" }}">
+                </div>
+                <div class="col-sm-6 mb-3 mb-sm-0" style="display: flex; margin-top: 24px;">
+                    <label for="brake"></label>
+                    <input type="float" class="form-control form-control-user" id="brake" name="brake"
+                           placeholder="Brake Quantity" value="{{ bike.brake|floatformat:"0" }}">
+                    <label for="brake_price"></label>
+                    <input type="float" class="form-control form-control-user" id="brake_price" name="brake_price"
+                           placeholder="Brake Price" value="{{ bike.brake_price|floatformat:"0" }}">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-6 mb-3 mb-sm-0" style="display: flex; margin-top: 24px;">
+                    <label for="spokes"></label>
+                    <input type="float" class="form-control form-control-user" id="spokes" name="spokes"
+                           placeholder="Spokes Quantity" value="{{ bike.spokes|floatformat:"0" }}">
+                    <label for="spokes_price"></label>
+                    <input type="float" class="form-control form-control-user" id="spokes_price" name="spokes_price"
+                           placeholder="Spokes Price" value="{{ bike.spokes_price|floatformat:"0" }}">
+                </div>
+                <div class="col-sm-6 mb-3 mb-sm-0">
+                    <label for="Bike_InvoiceNo"></label>
+                    <input type="text" class="form-control form-control-user" id="Bike_InvoiceNo" name="Bike_InvoiceNo"
+                           placeholder="Enter Invoice Number" value="{{ bike.Bike_InvoiceNo }}">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-6 mb-3 mb-sm-0">
+                    <label for="Bike_Description"></label>
+                    <input type="text" class="form-control form-control-user" id="Bike_Description" name="Bike_Description"
+                           placeholder="Enter Description" value="{{ bike.Bike_Description }}">
+                </div>
+            </div>
+            <br>
+            <button type="submit" value="submit" class="btn btn-primary mb-2">Submit</button>
+        </form>
+    </div>
+    <!-- /.container-fluid -->
+{% endblock content%}
+
+{% block ScriptBlock %}
+
+{% endblock ScriptBlock %}

@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block title %}- Add Device {% endblock title %}
+{% load static %}
+
+{% block content %}
+
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+        <h6 class="m-0 font-weight-bold text-primary">BMS Detail Agianst ID = {{ bms.id }}</h6>
+        <form action="../../updatebmsrecord/{{ bms.id }}" method="post">
+            {% csrf_token %}
+            <div class="form-group row">
+                <div class="col-sm-6 mb-3 mb-sm-0">
+                <br>
+                    <select class="form-control" id="BMS_Type" name="BMS_Type">
+                            <option>{{ bms.BMS_Type }}</option>
+                        {% for count in bmss %}
+                            <option>{{ count }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-sm-6" style="margin-top: 24px">
+                    <select class="form-control" id="BMSType" name="BMSType">
+                        {% if bms.BMSType == "Simple" %}
+                            <option>Simple</option>
+                            <option>Smart</option>
+                        {% endif %}
+                        {% if bms.BMSType == "Smart" %}
+                            <option>Smart</option>
+                            <option>Simple</option>
+                        {% endif %}
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <label for="BMS_qty"></label>
+                    <input type="float" class="form-control form-control-user" id="BMS_qty" name="BMS_qty"
+                               placeholder="Enter BMS Quantity" value="{{ bms.BMS_qty|floatformat:"0" }}">
+                </div>
+                <div class="col-sm-6 mb-3 mb-sm-0">
+                    <label for="BMS_price"></label>
+                    <input type="float" class="form-control form-control-user" id="BMS_price" name="BMS_price"
+                           placeholder="BMS Price" value="{{ bms.BMS_price|floatformat:"0" }}">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-6 mb-3 mb-sm-0">
+                    <label for="BMSDescription"></label>
+                    <input type="text" class="form-control form-control-user" id="BMSDescription" name="BMSDescription"
+                               placeholder="Enter Description" value="{{ bms.BMSDescription }}">
+                </div>
+                <div class="col-sm-6 mb-3 mb-sm-0">
+                    <label for="BMSInvoiceNo"></label>
+                    <input type="text" class="form-control form-control-user" id="BMSInvoiceNo" name="BMSInvoiceNo"
+                               placeholder="Enter Invoice Number" value="{{ bms.BMSInvoiceNo }}">
+                </div>
+            </div>
+            <button type="submit" value="submit" class="btn btn-primary mb-2">Submit</button>
+        </form>
+    </div>
+    <!-- /.container-fluid -->
+{% endblock content%}
+
+{% block ScriptBlock %}
+
+{% endblock ScriptBlock %}

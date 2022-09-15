@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>ELECTROMOTIVES {% block title %}{% endblock %}</title>
+    <link rel = "icon" href ="{% static 'img/logo.png' %}?{% now "U" %}" type = "image/x-icon">
+    <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}?{% now "U" %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'scss/fonts.scss' %}?{% now "U" %}" rel="stylesheet">
+    <link href="{% static 'css/sb-admin-2.min.css' %}?{% now "U" %}" rel="stylesheet">
+    <link href="{% static 'vendor/datatables/dataTables.bootstrap4.min.css' %}?{% now "U" %}" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}?{% now "U" %}" rel="stylesheet">
+    <style>
+        #barchart {
+            width: 100%;
+            height: 400px;
+        }
+    </style>
+    {% block CSSBlock %} {% endblock CSSBlock %}
+</head>
+
+<body id="page-top">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-fixed-top navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+
+                        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+                        <li class="nav-item dropdown no-arrow d-sm-none">
+                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-search fa-fw"></i>
+                            </a>
+                            <!-- Dropdown - Messages -->
+                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                                aria-labelledby="searchDropdown">
+                                <form class="form-inline mr-auto w-100 navbar-search">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control bg-light border-0 small"
+                                            placeholder="Search for..." aria-label="Search"
+                                            aria-describedby="basic-addon2">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary" type="button">
+                                                <i class="fas fa-search fa-sm"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </li>
+
+                        <!-- Nav Item - Alerts -->
+                        <li class="nav-item dropdown no-arrow mx-1">
+                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-bell fa-fw"></i>
+                                <!-- Counter - Alerts -->
+{#                                <span class="badge badge-danger badge-counter">{{ x }}</span>#}
+                            </a>
+                            <!-- Dropdown - Alerts -->
+                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="alertsDropdown">
+                                <h6 class="dropdown-header">
+                                    Alerts Center
+                                </h6>
+{#                                {% for bat in btinfo %}#}
+{#                                    {% if 30 >= bat.MinVolt and bat.MinVolt > 20 %}#}
+{#                                        <a class="dropdown-item d-flex align-items-center" href="#">#}
+{#                                            <div class="dropdown-list-image mr-3">#}
+{#                                                <div class="icon-circle bg-warning">#}
+{#                                                    <i class="fas fa-exclamation-triangle text-white"></i>#}
+{#                                                </div>#}
+{#                                            </div>#}
+{#                                            <div>#}
+{#                                                <div class="text-truncate">Your volatge is less than 30 volts against id = {{ bat1.id }}.</div>#}
+{#                                            </div>#}
+{#                                        </a>#}
+{#                                    {% elif 20 >= bat.MinVolt and bat.MinVolt > 10 %}#}
+{#                                        <a class="dropdown-item d-flex align-items-center" href="#">#}
+{#                                            <div class="dropdown-list-image mr-3">#}
+{#                                                <div class="icon-circle bg-warning">#}
+{#                                                    <i class="fas fa-exclamation-triangle text-white"></i>#}
+{#                                                </div>#}
+{#                                            </div>#}
+{#                                            <div>#}
+{#                                                <div class="text-truncate">Your volatge is less than 20 volts against id = {{ bat1.id }}.</div>#}
+{#                                            </div>#}
+{#                                        </a>#}
+{#                                    {% elif 10 >= bat.MinVolt and bat.MinVolt > 5 %}#}
+{#                                        <a class="dropdown-item d-flex align-items-center" href="#">#}
+{#                                            <div class="dropdown-list-image mr-3">#}
+{#                                                <div class="icon-circle bg-warning">#}
+{#                                                    <i class="fas fa-exclamation-triangle text-white"></i>#}
+{#                                                </div>#}
+{#                                            </div>#}
+{#                                            <div>#}
+{#                                                <div class="text-truncate">Your volatge is less than 10 volts against id = {{ bat1.id }}.</div>#}
+{#                                            </div>#}
+{#                                        </a>#}
+{#                                    {% elif 5 >= bat.MinVolt and bat.MinVolt >= 0 %}#}
+{#                                        <a class="dropdown-item d-flex align-items-center" href="#">#}
+{#                                            <div class="dropdown-list-image mr-3">#}
+{#                                                <div class="icon-circle bg-warning">#}
+{#                                                    <i class="fas fa-exclamation-triangle text-white"></i>#}
+{#                                                </div>#}
+{#                                            </div>#}
+{#                                            <div>#}
+{#                                                <div class="text-truncate">Your volatge is less than 5 volts against id = {{ bat1.id }}.</div>#}
+{#                                            </div>#}
+{#                                        </a>#}
+{#                                    {% endif %}#}
+{#                                {% endfor %}#}
+{#                                {% for message in zxc %}#}
+{#                                    <div class="mr-3">#}
+{#                                        <div class="icon-circle bg-warning">#}
+{#                                            <i class="fas fa-exclamation-triangle text-white"></i>#}
+{#                                        </div>#}
+{#                                    </div>#}
+{#                                    <div>#}
+{#                                        <span class="font-weight-bold">{{ message }}</span>#}
+{#                                    </div>#}
+{#                                {% endfor %}#}
+                                <a class="dropdown-item text-center small text-gray-500" href="{% url 'warning' %}">Show All Alerts</a>
+                            </div>
+                        </li>
+
+                        <!-- Nav Item - Messages -->
+                        <li class="nav-item dropdown no-arrow mx-1">
+                            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-envelope fa-fw"></i>
+                                <!-- Counter - Messages -->
+                                <span class="badge badge-danger badge-counter">7</span>
+                            </a>
+                            <!-- Dropdown - Messages -->
+                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="messagesDropdown">
+                                <h6 class="dropdown-header">
+                                    Message Center
+                                </h6>
+                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <div class="dropdown-list-image mr-3">
+                                        <img class="rounded-circle" src="{% static 'img/undraw_profile_1.svg' %}"
+                                            alt="...">
+                                        <div class="status-indicator bg-success"></div>
+                                    </div>
+                                    <div class="font-weight-bold">
+                                        <div class="text-truncate">Hi there! I am wondering if you can help me with a
+                                            problem I've been having.</div>
+                                        <div class="small text-gray-500">Emily Fowler · 58m</div>
+                                    </div>
+                                </a>
+                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <div class="dropdown-list-image mr-3">
+                                        <img class="rounded-circle" src="{% static 'img/undraw_profile_2.svg' %}"
+                                            alt="...">
+                                        <div class="status-indicator"></div>
+                                    </div>
+                                    <div>
+                                        <div class="text-truncate">I have the photos that you ordered last month, how
+                                            would you like them sent to you?</div>
+                                        <div class="small text-gray-500">Jae Chun · 1d</div>
+                                    </div>
+                                </a>
+                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <div class="dropdown-list-image mr-3">
+                                        <img class="rounded-circle" src="{% static 'img/undraw_profile_3.svg' %}"
+                                            alt="...">
+                                        <div class="status-indicator bg-warning"></div>
+                                    </div>
+                                    <div>
+                                        <div class="text-truncate">Last month's report looks great, I am very happy with
+                                            the progress so far, keep up the good work!</div>
+                                        <div class="small text-gray-500">Morgan Alvarez · 2d</div>
+                                    </div>
+                                </a>
+                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <div class="dropdown-list-image mr-3">
+                                        <img class="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60"
+                                            alt="...">
+                                        <div class="status-indicator bg-success"></div>
+                                    </div>
+                                    <div>
+                                        <div class="text-truncate">Am I a good boy? The reason I ask is because someone
+                                            told me that people say this to all dogs, even if they aren't good...</div>
+                                        <div class="small text-gray-500">Chicken the Dog · 2w</div>
+                                    </div>
+                                </a>
+                                <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
+                            </div>
+                        </li>
+
+                        <div class="topbar-divider d-none d-sm-block"></div>
+
+                        <!-- Nav Item - User Information -->
+                    {% block sidebar %}
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+                                <span class="mr-2 d-lg-inline text-gray-600 small">
+                                    {% if user.is_authenticated %}
+                                        {% if request.user.first_name == "" %}
+                                            {{ request.user }}
+                                        {% else %}
+                                            {{ request.user.first_name }}  {{ request.user.last_name }}
+                                        {% endif %}
+                                    {% endif %}
+                                </span>
+
+                                <img class="img-profile rounded-circle"
+                                    src="{% static 'img/undraw_profile.svg' %}">
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Profile
+                                </a>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Settings
+                                </a>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Activity Log
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                {% if not user.is_authenticated %}
+                                    <a class="dropdown-item" href="{% url 'login'%}?next={{request.path}}">
+                                        <button type="submit" class="dropdown-item">
+                                            <i class="fas fa-sign-in-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                            Login
+                                        </button>
+                                    </a>
+                                {% else %}
+                                    <a class="dropdown-item" href="{% url 'logout'%}?next={{request.path}}">
+                                        <button type="submit" class="dropdown-item">
+                                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                            Logout
+                                        </button>
+                                    </a>
+                                {% endif %}
+
+                            </div>
+                        </li>
+                    {% endblock %}
+
+                    </ul>
+
+                </nav>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                {% block content %}
+                {% endblock content %}
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Created by @Rana Talha(SE)</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" style="text-decoration: none;margin: 15px;" href="{% url 'index' %}">
+                <div>
+                    <img src="{% static 'img/logo.png' %}" style="width: 60px">
+                    <div class="sidebar-brand-text mx-3" style="font-family:'Futura Md BT'">ElectroMotives</div>
+                </div>
+            </a>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <!-- Nav Item - Dashboard -->
+            <li id="fa-spin" class="nav-item {% if request.resolver_match.url_name == 'index' %}active{% endif %}">
+                <a class="nav-link" href="{% url 'index' %}">
+                    <i id="fa-spi" class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Interface
+            </div>
+
+{#            <li id="fa-spin" class="nav-item {% if request.resolver_match.url_name == 'color' %}active{% endif %}">#}
+{#                <a class="nav-link" href="{% url 'warning' %}">#}
+{#                    <i id="fa-spi" class="fas fa-fw fas fa-exclamation"></i>#}
+{#                    <span>Warnings</span></a>#}
+{#            </li>#}
+
+            <li id="fa-spin" class="nav-item {% if request.resolver_match.url_name == 'locations' %}active{% endif %}">
+                <a class="nav-link" href="{% url 'locations' %}">
+                    <i id="fa-spi" class="fas fa-fw fa-map-marker-alt"></i>
+                    <span>Locations</span></a>
+            </li>
+
+            <li id="fa-spin" class="nav-item {% if request.resolver_match.url_name == 'add_battery' %}active{% endif %}">
+                <a class="nav-link" href="{% url 'add_battery' %}">
+                    <i id="fa-spi" class="fas fa-fw fa-plus"></i>
+                    <span>Add Battery</span></a>
+            </li>
+
+            <li id="fa-spin" class="nav-item {% if request.resolver_match.url_name == 'add_charger' %}active{% endif %}">
+                <a class="nav-link" href="{% url 'add_charger' %}">
+                    <i id="fa-spi" class="fas fa-fw fa-plus"></i>
+                    <span>Add Charger</span></a>
+            </li>
+
+            <li id="fa-spin" class="nav-item {% if request.resolver_match.url_name == 'add_inventory' %}active{% endif %}">
+                <a class="nav-link" href="{% url 'add_inventory' %}">
+                    <i id="fa-spi" class="fas fa-fw fa-plus"></i>
+                    <span>Add Inventory</span></a>
+            </li>
+
+            <!-- Nav Item - Tables -->
+            <li id="fa-spin" class="nav-item {% if request.resolver_match.url_name == 'battery' %}active{% endif %}">
+                <a class="nav-link" href="{% url 'battery' %}">
+                    <i id="fa-spi" class="fas fa-car-battery"></i>
+                    <span>Batteries Detail</span></a>
+            </li>
+
+            <li id="fa-spin" class="nav-item {% if request.resolver_match.url_name == 'inventory' %}active{% endif %}">
+                <a class="nav-link" href="{% url 'inventory' %}">
+                    <i id="fa-spi" class="fas fa-dolly"></i>
+                    <span>Inventory Detail</span></a>
+            </li>
+
+{#            <li id="fa-spin" class="nav-item {% if request.resolver_match.url_name == 'charger' %}active{% endif %}">#}
+{#                <a class="nav-link" href="{% url 'charger' %}">#}
+{#                    <i id="fa-spi" id="fa-spi" class="fas fa-fw fa-plug fa-spi"></i>#}
+{#                    <span>Charger Detail</span></a>#}
+{#            </li>#}
+
+            <li id="fa-spin" class="nav-item {% if request.resolver_match.url_name == 'store' %}active{% endif %}">
+                <a class="nav-link" href="{% url 'store' %}">
+                    <i id="fa-spi" id="fa-spi" class="fas fa-fw fa-store fa-spi"></i>
+                    <span>Store</span></a>
+            </li>
+
+            <li id="fa-spin" class="nav-item {% if request.resolver_match.url_name == 'device_data' %}active{% endif %}">
+                <a class="nav-link" href="{% url 'device_data' %}">
+                    <i id="fa-spi" id="fa-spi" class="fas fa-fw fa-store fa-spi"></i>
+                    <span>Device Data</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Customer
+            </div>
+
+            <li id="fa-spin" class="nav-item {% if request.resolver_match.url_name == 'addcustomer' %}active{% endif %}">
+                <a class="nav-link" href="{% url 'addcustomer' %}">
+                    <i id="fa-spi" class="fas fa-user"></i>
+                    <span>Add Customer</span></a>
+            </li>
+
+            <li id="fa-spin" class="nav-item {% if request.resolver_match.url_name == 'customer' %}active{% endif %}">
+                <a class="nav-link" href="{% url 'customer' %}">
+                    <i id="fa-spi" class="fas fa-address-book"></i>
+                    <span>Customer Detail</span></a>
+            </li>
+{#            <li class="nav-item">#}
+{#                <a class="nav-link" href="{% url 'border' %}">#}
+{#                    <i class="fas fa-fw fa-border-style"></i>#}
+{#                    <span>Borders</span></a>#}
+{#            </li>#}
+{##}
+{#            <li class="nav-item">#}
+{#                <a class="nav-link" href="{% url 'animation' %}">#}
+{#                    <i class="fas fa-fw fa-tachometer-alt"></i>#}
+{#                    <span>Animations</span></a>#}
+{#            </li>#}
+
+            <!-- Nav Item - Pages Collapse Menu -->
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Addons
+            </div>
+
+            {% if user.is_authenticated %}
+                <li id="fa-spin" class="nav-item {% if request.resolver_match.url_name == 'logout' %}active{% endif %}">
+                    <a class="nav-link" href="{% url 'logout' %}">
+                        <i id="fa-spi" class="fas fa-fw fa-sign-out-alt"></i>
+                        <span>Logout</span></a>
+                </li>
+            {% else %}
+                <li id="fa-spin" class="nav-item {% if request.resolver_match.url_name == 'login' %}active{% endif %}">
+                    <a class="nav-link" href="{% url 'login' %}">
+                        <i id="fa-spi" class="fas fa-fw fa-sign-in-alt"></i>
+                        <span>Login</span></a>
+                </li>
+            {% endif %}
+            <li id="fa-spin" class="nav-item {% if request.resolver_match.url_name == 'register' %}active{% endif %}">
+                <a class="nav-link" href="{% url 'register' %}">
+                    <i id="fa-spi" class="fas fa-fw fa-address-book"></i>
+                    <span>Register</span></a>
+            </li>
+
+{#            <li class="nav-item active">#}
+{#                <a class="nav-link" href="{% url 'forgot-password' %}">#}
+{#                    <i class="fas fa-fw fa-tachometer-alt"></i>#}
+{#                    <span>Forgot Password</span></a>#}
+{#            </li>#}
+
+            <!-- Nav Item - Charts -->
+{#            <li class="nav-item">#}
+{#                <a class="nav-link" href="{% url 'add_inventory' %}">#}
+{#                    <i class="fas fa-fw fa-chart-area"></i>#}
+{#                    <span>Charts</span></a>#}
+{#            </li>#}
+
+
+
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+
+            <!-- Sidebar Message -->
+
+
+        </ul>
+        <!-- End of Sidebar -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+
+    <!-- Bootstrap core JavaScript-->
+
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}?{% now "U" %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}?{% now "U" %}"></script>
+    <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}?{% now "U" %}"></script>
+    <script src="{% static 'vendor/datatables/jquery.dataTables.min.js' %}?{% now "U" %}"></script>
+    <script src="{% static 'vendor/datatables/dataTables.bootstrap4.min.js' %}?{% now "U" %}"></script>
+    <script src="{% static 'js/demo/datatables-demo.js' %}?{% now "U" %}"></script>
+    <script src="{% static 'js/sb-admin-2.min.js' %}?{% now "U" %}"></script>
+    <script src="{% static 'vendor/chart.js/Chart.min.js' %}?{% now "U" %}"></script>
+    <script src="{% static 'js/demo/chart-area-demo.js' %}?{% now "U" %}"></script>
+    <script src="{% static 'js/demo/chart-pie-demo.js' %}?{% now "U" %}"></script>
+    <script src="{% static 'js/demo/chart-bar-demo.js' %}?{% now "U" %}"></script>
+    <script src="{% static 'js/demo/barchart.min.js' %}?{% now "U" %}"></script>
+    {% block ScriptBlock %} {% endblock ScriptBlock %}
+
+
+{#    <script>#}
+{#        function myFunction() {#}
+{#            alert("Hello! I am an alert box!");#}
+{#        }#}
+{#    </script>#}
+    <script>
+        window.start_loader = function() {
+            $('body').removeClass('loaded')
+        }
+        window.end_loader = function() {
+            $('body').addClass('loaded')
+        }
+        window.uni_modal = function($title = '', $url = '', $size = "") {
+            start_loader()
+            $.ajax({
+                url: $url,
+                error: err => {
+                    console.log()
+                    alert("An error occured")
+                },
+                success: function(resp) {
+                    if (resp) {
+                        $('#uni_modal .modal-title').html($title)
+                        $('#uni_modal .modal-body').html(resp)
+                        if ($size != '') {
+                            $('#uni_modal .modal-dialog').addClass($size + '  modal-dialog-centered')
+                        } else {
+                            $('#uni_modal .modal-dialog').removeAttr("class").addClass("modal-dialog modal-md modal-dialog-centered")
+                        }
+                        $('#uni_modal').modal({
+                            backdrop: 'static',
+                            keyboard: false,
+                            focus: true
+                        })
+                        $('#uni_modal').modal('show')
+                        end_loader()
+                    }
+                }
+            })
+        }
+        window._conf = function($msg = '', $func = '', $params = []) {
+            $('#confirm_modal #confirm').attr('onclick', $func + "(" + $params.join(',') + ")")
+            $('#confirm_modal .modal-body').html($msg)
+            $('#confirm_modal').modal('show')
+        }
+        $(function() {
+
+        })
+    </script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> -->
+
+</body>
+
+</html>

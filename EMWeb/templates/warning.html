@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}- Warnings{% endblock title %}
+{% load static %}
+
+{% block content %}
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+                    <!-- Page Heading -->
+
+                    <h1 class="h3 mb-1 text-warning">Warnings</h1>
+                    {% for message in messages %}
+                            <div class="alert alert-{{message.tags}} warning-dismissible fade show" role="alert">
+                                <strong>Message:-</strong>{{ message }}
+                                <button type="button", class="close", data-dismiss="alert", aria-label="close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                    {% endfor %}
+
+{#                <!-- /.container-fluid -->#}
+                </div>
+{% endblock content%}

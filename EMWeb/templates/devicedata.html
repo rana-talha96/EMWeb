@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% block title %}- Device Detail {% endblock title %}
+{% load static %}
+
+{% block content %}
+
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="form-group row">
+                <div class="col-sm-6 mb-3 mb-sm-0">
+                    <label for="exampleFormControlSelect1">Bourd Rate</label>
+                    <select class="form-control" id="baud_rate" name="baud_rate">
+                        <option>300</option>
+                        <option>1200</option>
+                        <option>2400</option>
+                        <option>4800</option>
+                        <option selected="selected">9600</option>
+                        <option>19200</option>
+                        <option>38400</option>
+                        <option>57600</option>
+                        <option>74880</option>
+                        <option>115200</option>
+                        <option>230400</option>
+                        <option>250000</option>
+                        <option>500000</option>
+                        <option>1000000</option>
+                        <option>2000000</option>
+                    </select>
+                </div>
+                <div class="col-sm-6">
+                    <label for="exampleFormControlSelect1">Select Port</label>
+                    <select class="form-control" id="port" name="port">
+                        {% for port in ports %}
+                            <option>{{ port }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+{#            <button type="submit" value="submit" name="submitData" class="btn btn-primary mb-2">Submit</button>#}
+            <button type="submit" name="deviceData" class="btn btn-primary mb-2">Get Data</button>
+        </form>
+    <div class="form-group row">
+{#        {% if msg %}#}
+        <table class="table table-bordered" width="100%" cellspacing="0">
+            <thead>
+                <tr class="header">
+                    <th>Batery Type</th>
+                    <th>Max Voltage</th>
+                    <th>Min Voltage</th>
+                    <th>Max Current</th>
+                    <th>Min Current</th>
+                    <th>Single Cell Max Voltage</th>
+                    <th>Single Cell Min Voltage</th>
+                    <th>Tempreture</th>
+                    <th>Manufacture ID</th>
+                    <th>Latitude</th>
+                    <th>Longitude</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    {% for data in deivce_data %}
+                        <td>{{ data }}</td>
+                    {% endfor %}
+                </tr>
+            </tbody>
+        </table>
+{#        {% endif %}#}
+    </div>
+    </div>
+    <!-- /.container-fluid -->
+{% endblock content%}

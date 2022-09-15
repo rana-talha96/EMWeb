@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+{% block title %}- Add Device {% endblock title %}
+{% load static %}
+
+{% block content %}
+
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+        <h1>Add Battery Details</h1>
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="form-group row">
+{#                <div class="col-sm-6 mb-3 mb-sm-0">#}
+{#                    <label for="id"></label>#}
+{#                    <input type="text" class="form-control form-control-user" id="id" name="id"#}
+{#                           placeholder="Enter ID">#}
+{#                </div>#}
+                <div class="col-sm-6">
+                    <label for="exampleFormControlSelect1">Select Battery Type</label>
+                    <select class="form-control" id="BatType" name="BatType">
+                        {% for bat in Battery_Type %}
+                            <option>{{ bat }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-6 mb-3 mb-sm-0">
+                    <label for="MaxVolt"></label>
+                    <input type="float" class="form-control form-control-user" id="MaxVolt" name="MaxVolt"
+                           placeholder="Maximum Voltage" >
+                </div>
+                <div class="col-sm-6">
+                    <label for="MinVolt"></label>
+                    <input type="float" class="form-control form-control-user" id="MinVolt" name="MinVolt"
+                           placeholder="Minimum Voltage" >
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-6 mb-3 mb-sm-0">
+                    <label for="MaxAmp"></label>
+                    <input type="float" class="form-control form-control-user" id="MaxAmp" name="MaxAmp"
+                           placeholder="Maximum Ampere" >
+                </div>
+                <div class="col-sm-6">
+                    <label for="MinAmp"></label>
+                    <input type="float" class="form-control form-control-user" id="MinAmp" name="MinAmp"
+                           placeholder="Minimum Apmere" >
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-6 mb-3 mb-sm-0">
+                    <label for="SCMaxVolt"></label>
+                    <input type="float" class="form-control form-control-user" id="SCMaxVolt" name="SCMaxVolt"
+                           placeholder="Single Cell Maximum Voltage" >
+                </div>
+                <div class="col-sm-6">
+                    <label for="SCMinVolt"></label>
+                    <input type="float" class="form-control form-control-user" id="SCMinVolt" name="SCMinVolt"
+                           placeholder="Single Cell Minimum Voltage">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-6 mb-3 mb-sm-0">
+                    <label for="Temp"></label>
+                    <input type="float" class="form-control form-control-user" id="Temp" name="Temp"
+                           placeholder="Temperature" >
+                </div>
+                <div class="col-sm-6">
+                    <label for="Manf_ID"></label>
+                    <input type="text" class="form-control form-control-user" id="Manf_ID" name="Manf_ID"
+                           placeholder="Manufacture ID">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-6 mb-3 mb-sm-0">
+                    <label for="Latitude"></label>
+                    <input type="float" class="form-control form-control-user" id="Latitude" name="Latitude"
+                           placeholder="Latitude" >
+                </div>
+                <div class="col-sm-6">
+                    <label for="Longitude"></label>
+                    <input type="float" class="form-control form-control-user" id="Longitude" name="Longitude"
+                           placeholder="Longitude" >
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-6 mb-3 mb-sm-0">
+                    <label for="exampleFormControlSelect1">Bourd Rate</label>
+                    <select class="form-control" id="baud_rate" name="baud_rate">
+                        <option>300</option>
+                        <option>1200</option>
+                        <option>2400</option>
+                        <option>4800</option>
+                        <option selected="selected">9600</option>
+                        <option>19200</option>
+                        <option>38400</option>
+                        <option>57600</option>
+                        <option>74880</option>
+                        <option>115200</option>
+                        <option>230400</option>
+                        <option>250000</option>
+                        <option>500000</option>
+                        <option>1000000</option>
+                        <option>2000000</option>
+                    </select>
+                </div>
+                <div class="col-sm-6">
+                    <label for="exampleFormControlSelect1">Select Port</label>
+                    <select class="form-control" id="port" name="port">
+                        {% for port in ports %}
+                            <option>{{ port }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <button type="submit" value="submit" name="submitData" class="btn btn-primary mb-2">Submit</button>
+        </form>
+    </div>
+    <!-- /.container-fluid -->
+{% endblock content%}
+
+{% block ScriptBlock %}
+     <script>
+        function setGetParameter(){
+            {#var baud_value = $("#port").val();#}
+            var port_value = $("#baud_rate").val();
+            $.ajax({
+              type: "POST",
+              url: {% url 'add_battery' %},
+              data:  port_value,
+              success: function(result){
+                alert("Success");
+              }
+            });
+        }
+    </script>
+{% endblock ScriptBlock %}

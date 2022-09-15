@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% block title %}- Charger Details {% endblock title %}
+
+{% load static %}
+{% block CSSBlock %}
+    <link rel="stylesheet" href="{% static 'posAPP/assets/material-admin/css/demo/style.css' %}">
+{% endblock CSSBlock %}
+{% block content %}
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Customers Detail</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+{#                    <input type="text" onkeyup="searchFun()" class="form-control" id="searchField" aria-describedby="emailHelp" placeholder="Enter Name">#}
+{#                    <br>#}
+                    <table class="table table-bordered" id="dataTable">
+                        <thead>
+                            <tr class="header">
+                                <th>Sr.</th>
+                                <th>Customer Name</th>
+                                <th>Customer Number</th>
+                                <th>Customer Address</th>
+                                <th>Delivery Type</th>
+                                <th>Delivery Date</th>
+                                <th>Description</th>
+                                <th>Added by</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>Sr.</th>
+                                <th>Customer Name</th>
+                                <th>Customer Number</th>
+                                <th>Customer Address</th>
+                                <th>Delivery Type</th>
+                                <th>Delivery Date</th>
+                                <th>Description</th>
+                                <th>Added by</th>
+                                <th>Action</th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            {% for customer in Customer_Detail %}
+                                <tr>
+                                    <td>{{customer.Ship_No}}</td>
+                                    <td>{{customer.customer_name}}</td>
+                                    <td>{{customer.customer_number}}</td>
+                                    <td>{{customer.customer_address}}</td>
+                                    <td>{{customer.delivery_type}}</td>
+                                    <td>{{customer.DatePur|date:"M d, Y"}}</td>
+                                    <td>{{customer.Description}}</td>
+                                    <td>{{customer.User}}</td>
+                                    <td class="text-center">
+                                        <button class="mdc-button mdc-button--raised p-1 icon-button filled-button--light mdc-ripple-upgraded view-data" type="button"title="View" style="color: inherit; text-decoration: none">
+                                            <a href='/customer/{{ customer.id }}/'><i class="material-icons mdc-button__icon">receipt</i></a>
+                                        </button>
+                                        <button class="mdc-button mdc-button--raised p-1 icon-button filled-button--light mdc-ripple-upgraded edit-data" title="Edit" style="color: inherit; text-decoration: none">
+                                            <a href='/customerupdate/{{ customer.id }}/'><i class="material-icons mdc-button__icon">edit</i></a>
+                                        </button>
+                                        <button class="mdc-button mdc-button--raised p-1 icon-button filled-button--danger mdc-ripple-upgraded delete-data" type="button" title="Delete" style="color: inherit; text-decoration: none">
+                                            <a href='/deletecustomer/{{ customer.id }}' style="color: inherit; text-decoration: none"><i class="material-icons mdc-button__icon">deleteoutline</i></a>
+                                        </button>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.container-fluid -->
+
+{% endblock content%}

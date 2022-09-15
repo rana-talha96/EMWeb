@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block title %}- Battery = {{ btinfo.id }} {% endblock title %}
+{% load static %}
+
+{% block content %}
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+                    <!-- DataTales Example -->
+                   <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Battery Detail Against ID = {{ btinfo.id }}</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <br>
+                                <table class="table table-bordered" id="myTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr class="header">
+                                            <th>Batery Type</th>
+                                            <th>Max Voltage</th>
+                                            <th>Min Voltage</th>
+                                            <th>Max Current</th>
+                                            <th>Min Current</th>
+                                            <th>Single Cell Max Voltage</th>
+                                            <th>Single Cell Min Voltage</th>
+                                            <th>Tempreture</th>
+                                            <th>Date Purchase</th>
+                                            <th>Latitude</th>
+                                            <th>Longitude</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                            <tr>
+                                                <td>{{btinfo.BatType}}</td>
+                                                <td>{{btinfo.MaxVolt}} V</td>
+                                                <td>{{btinfo.MinVolt}} V</td>
+                                                <td>{{btinfo.MaxAmp}} A</td>
+                                                <td>{{btinfo.MinAmp}} A</td>
+                                                <td>{{btinfo.SCMaxVolt}} V</td>
+                                                <td>{{btinfo.SCMinVolt}} V</td>
+                                                <td>{{btinfo.Temp}}°</td>
+                                                <td>{{btinfo.DatePur|date:"M d, Y"}}</td>
+                                                <td>{{btinfo.Latitude}}</td>
+                                                <td>{{btinfo.Longitude}}</td>
+                                            </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="card-footer py-3">
+                           <p class="m-0 font-weight-bold" style="text-align: right"><a href="{% url 'warning' %}">Back</a></p>
+                        </div>
+
+                   </div>
+
+                </div>
+
+                <!-- /.container-fluid -->
+
+{% endblock content%}

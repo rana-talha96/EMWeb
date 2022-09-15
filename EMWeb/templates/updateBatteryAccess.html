@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% block title %}- Add Device {% endblock title %}
+{% load static %}
+
+{% block content %}
+
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+        <h6 class="m-0 font-weight-bold text-primary">Bike Kit Detail Agianst ID = {{ battery.id }}</h6>
+        <form action="../../updateBatteryAccessrecord/{{ battery.id }}" method="post">
+            {% csrf_token %}
+            <div class="form-group row">
+                <div class="col-sm-6" style="display: flex; margin-top: 24px;">
+                    <label for="enclosure"></label>
+                    <input type="float" class="form-control form-control-user" id="enclosure" name="enclosure"
+                           placeholder="Enclosure Quantity" value="{{ battery.enclosure|floatformat:"0" }}">
+                    <label for="enclosure_price"></label>
+                    <input type="float" class="form-control form-control-user" id="enclosure_price" name="enclosure_price"
+                           placeholder="Enclosure Price" value="{{ battery.enclosure_price|floatformat:"0" }}">
+                </div>
+                <div class="col-sm-6 mb-3 mb-sm-0" style="display: flex; margin-top: 24px;">
+                    <label for="breaker"></label>
+                    <input type="float" class="form-control form-control-user" id="breaker" name="breaker"
+                               placeholder="Breaker Quantity" value="{{ battery.breaker|floatformat:"0" }}">
+                    <label for="breaker_price"></label>
+                    <input type="float" class="form-control form-control-user" id="breaker_price" name="breaker_price"
+                               placeholder="Breaker Price" value="{{ battery.breaker_price|floatformat:"0" }}">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-6 mb-3 mb-sm-0" style="display: flex; margin-top: 24px;">
+                    <label for="display"></label>
+                    <input type="float" class="form-control form-control-user" id="display" name="display"
+                               placeholder="Display Quantity" value="{{ battery.display|floatformat:"0" }}">
+                    <label for="display_price"></label>
+                    <input type="float" class="form-control form-control-user" id="display_price" name="display_price"
+                               placeholder="Display Price" value="{{ battery.display_price|floatformat:"0" }}">
+                </div>
+                <div class="col-sm-6 mb-3 mb-sm-0" style="display: flex; margin-top: 24px;">
+                    <label for="B_Connector"></label>
+                    <input type="float" class="form-control form-control-user" id="B_Connector" name="B_Connector"
+                               placeholder="Banana Post Connector Quantity" value="{{ battery.B_Connector|floatformat:"0" }}">
+                    <label for="B_Connector_price"></label>
+                    <input type="float" class="form-control form-control-user" id="B_Connector_price" name="B_Connector_price"
+                               placeholder="Banana Post Connector Price" value="{{ battery.B_Connector_price|floatformat:"0" }}">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-6 mb-3 mb-sm-0" style="display: flex; margin-top: 24px;">
+                    <label for="wire"></label>
+                    <input type="float" class="form-control form-control-user" id="wire" name="wire"
+                               placeholder="Wire Quantity" value="{{ battery.wire|floatformat:"0" }}">
+                    <label for="wire_price"></label>
+                    <input type="float" class="form-control form-control-user" id="wire_price" name="wire_price"
+                           placeholder="Wire Price" value="{{ battery.wire_price|floatformat:"0" }}">
+                </div>
+                <div class="col-sm-6 mb-3 mb-sm-0" style="display: flex; margin-top: 24px;">
+                    <label for="thimble"></label>
+                    <input type="float" class="form-control form-control-user" id="thimble" name="thimble"
+                               placeholder="Thimble Quantity" value="{{ battery.thimble|floatformat:"0" }}">
+                    <label for="thimble_price"></label>
+                    <input type="float" class="form-control form-control-user" id="thimble_price" name="thimble_price"
+                           placeholder="Thimble Price" value="{{ battery.thimble_price|floatformat:"0" }}">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-6 mb-3 mb-sm-0">
+                    <label for="Battery_InvoiceNo"></label>
+                    <input type="text" class="form-control form-control-user" id="Battery_InvoiceNo" name="Battery_InvoiceNo"
+                           placeholder="Enter Invoice Number" value="{{ battery.Battery_InvoiceNo }}">
+                </div>
+                <div class="col-sm-6 mb-3 mb-sm-0">
+                    <label for="Battery_Description"></label>
+                    <input type="text" class="form-control form-control-user" id="Battery_Description" name="Battery_Description"
+                           placeholder="Enter Description" value="{{ battery.Battery_Description }}">
+                </div>
+            </div>
+            <br>
+            <button type="submit" value="submit" class="btn btn-primary mb-2">Submit</button>
+        </form>
+    </div>
+    <!-- /.container-fluid -->
+{% endblock content%}
+
+{% block ScriptBlock %}
+
+{% endblock ScriptBlock %}

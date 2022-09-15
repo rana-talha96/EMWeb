@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block title %}- Add Device {% endblock title %}
+{% load static %}
+
+{% block content %}
+
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+        <h6 class="m-0 font-weight-bold text-primary">battery Detail Agianst ID = {{ battery.id }}</h6>
+        <form action="../../updatebatteryrecord/{{ battery.id }}" method="post">
+            {% csrf_token %}
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <label for="Battery_pack"></label>
+                    <select class="form-control" id="Battery_pack" name="Battery_pack">
+                        <option>{{ battery.Battery_pack }}</option>
+                        {% for battery in Battery_pack %}
+                            <option>{{ battery }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-sm-6 mb-3 mb-sm-0">
+                    <label for="Battery_pack_qty"></label>
+                    <input type="float" class="form-control form-control-user" id="Battery_pack_qty" name="Battery_pack_qty"
+                           placeholder="Enter Battery Pack Quantity" value="{{ battery.Battery_pack_qty|floatformat:"0" }}">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-6 mb-3 mb-sm-0">
+                    <label for="Battery_pack_price"></label>
+                    <input type="float" class="form-control form-control-user" id="Battery_pack_price" name="Battery_pack_price"
+                           placeholder="Battery Price" value="{{ battery.Battery_pack_price|floatformat:"0" }}">
+                </div>
+                <div class="col-sm-6 mb-3 mb-sm-0">
+                    <label for="BatteryInvoiceNo"></label>
+                    <input type="text" class="form-control form-control-user" id="BatteryInvoiceNo" name="BatteryInvoiceNo"
+                           placeholder="Enter Invoice Number" value="{{ battery.BatteryInvoiceNo }}">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-6 mb-3 mb-sm-0">
+                    <label for="BatteryDescription"></label>
+                    <input type="text" class="form-control form-control-user" id="BatteryDescription" name="BatteryDescription"
+                           placeholder="Enter Description" value="{{ battery.BatteryDescription }}">
+                </div>
+            </div>
+            <button type="submit" value="submit" class="btn btn-primary mb-2">Submit</button>
+        </form>
+    </div>
+    <!-- /.container-fluid -->
+{% endblock content%}
+
+{% block ScriptBlock %}
+
+{% endblock ScriptBlock %}

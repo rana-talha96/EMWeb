@@ -1,0 +1,667 @@
+{% extends 'base.html' %}
+{% block title %}- Inventory detail{% endblock title %}
+{% load humanize %}
+{% block CSSBlock %}
+<style>
+    .box{
+        color: #fff;
+        padding: 20px;
+        display: none;
+        margin-top: 20px;
+    }
+</style>
+{% endblock CSSBlock %}
+{% load static %}
+
+{% block content %}
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+        <h1>Store Details</h1>
+{#        <form action="" method="post">#}
+{#            {% csrf_token %}#}
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <select id="color-selector" class="form-control">
+                        <option>Choose Item to Show</option>
+                        <option value="cell" selected>Cell</option>
+                        <option value="bms">BMS</option>
+                        <option value="battery_pack">Complete Battery Pack</option>
+                        <option value="bike_pack">Complete Bike Conversion Kit</option>
+                        <option value="bike_accessory">Bike Accessory</option>
+                        <option value="battery_accessory">Battery Accessory</option>
+                    </select>
+                </div>
+            </div>
+            <!-- Cell Detail -->
+            <div class="cell box" style="display: contents;">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Cell in Stock</h6>
+                </div>
+                <table class="table table-striped">
+                    <thead class="thead-dark">
+                        <tr class="header">
+                            <th>Cell Type</th>
+                            <th>Quantity</th>
+                            <th>Per Unit Price</th>
+                            <th>Total Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>LifePO4 6Ah</td>
+                            <td>{{ L6_ah|floatformat:"0" }}</td>
+                            <td>{{ L6_ahPUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ L6_ahPrize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                        <tr>
+                            <td>LifePO4 20Ah</td>
+                            <td>{{ L20_ah|floatformat:"0" }}</td>
+                            <td>{{ L20_ahPUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ L20_ahPrize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                        <tr>
+                            <td>LifePO4 25Ah</td>
+                            <td>{{ L25_ah|floatformat:"0" }}</td>
+                            <td>{{ L25_ahPUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ L25_ahPrize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                        <tr>
+                            <td>LifePO4 40Ah</td>
+                            <td>{{ L40_ah|floatformat:"0" }}</td>
+                            <td>{{ L40_ahPUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ L40_ahPrize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                        <tr>
+                            <td>LifePO4 50Ah</td>
+                            <td>{{ L50_ah|floatformat:"0" }}</td>
+                            <td>{{ L50_ahPUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ L50_ahPrize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                        <tr>
+                            <td>LifePO4 105Ah</td>
+                            <td>{{ L105_ah|floatformat:"0" }}</td>
+                            <td>{{ L105_ahPUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ L105_ahPrize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                        <tr>
+                            <td>LifePO4 205Ah</td>
+                            <td>{{ L205_ah|floatformat:"0" }}</td>
+                            <td>{{ L205_ahPUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ L205_ahPrize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- Cell Detail -->
+
+            <!-- BMS Detail -->
+            <div class="bms box" style="display: contents;">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">BMS in Stock</h6>
+                </div>
+                <table class="table table-striped">
+                    <thead class="thead-dark">
+                        <tr class="header">
+                            <th>BMS Type</th>
+                            <th>Quantity</th>
+                            <th>Per Unit Price</th>
+                            <th>Total Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>LifePO4 4S 20A</td>
+                            <td>{{ S4_20ah|floatformat:"0" }}</td>
+                            <td>{{ S4_20ahPUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ S4_20ahPrize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                        <tr>
+                            <td>LifePO4 4S 50A</td>
+                            <td>{{ S4_50ah|floatformat:"0" }}</td>
+                            <td>{{ S4_50ahPUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ S4_50ahPrize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                        <tr>
+                            <td>LifePO4 4S 100A</td>
+                            <td>{{ S4_100ah|floatformat:"0" }}</td>
+                            <td>{{ S4_100ahPUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ S4_100ahPrize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                        <tr>
+                            <td>LifePO4 4S 200A</td>
+                            <td>{{ S4_200ah|floatformat:"0" }}</td>
+                            <td>{{ S4_200ahPUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ S4_200ahPrize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                        <tr>
+                            <td>LifePO4 4S 100A - Smart</td>
+                            <td>{{ S4_S100ah|floatformat:"0" }}</td>
+                            <td>{{ S4_S100ahPUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ S4_S100ahPrize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                        <tr>
+                            <td>LifePO4 4S 200A - Smart</td>
+                            <td>{{ S4_S200ah|floatformat:"0" }}</td>
+                            <td>{{ S4_S200ahPUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ S4_S200ahPrize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                        <tr>
+                            <td>LifePO4 8S 50A</td>
+                            <td>{{ S8_50ah|floatformat:"0" }}</td>
+                            <td>{{ S8_50ahPUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ S8_50ahPrize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                        <tr>
+                            <td>LifePO4 8S 100A</td>
+                            <td>{{ S8_100ah|floatformat:"0" }}</td>
+                            <td>{{ S8_100ahPUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ S8_100ahPrize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                        <tr>
+                            <td>LifePO4 8S 100A - Smart</td>
+                            <td>{{ S8_S100ah|floatformat:"0" }}</td>
+                            <td>{{ S8_S100ahPUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ S8_S100ahPrize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                        <tr>
+                            <td>LifePO4 8S 200A - Smart</td>
+                            <td>{{ S8_200ah|floatformat:"0" }}</td>
+                            <td>{{ S8_200ahPUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ S8_200ahPrize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                        <tr>
+                            <td>LifePO4 15S 50A</td>
+                            <td>{{ S15_50ah|floatformat:"0" }}</td>
+                            <td>{{ S15_50ahPUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ S15_50ahPrize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                        <tr>
+                            <td>LifePO4 15S 100A - Smart</td>
+                            <td>{{ S15_100ah|floatformat:"0" }}</td>
+                            <td>{{ S15_100ahPUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ S15_100ahPrize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                        <tr>
+                            <td>LifePO4 15S 200A - Smart</td>
+                            <td>{{ S15_200ah|floatformat:"0" }}</td>
+                            <td>{{ S15_200ahPUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ S15_200ahPrize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                        <tr>
+                            <td>LifePO4 16S 50A</td>
+                            <td>{{ S16_50ah|floatformat:"0" }}</td>
+                            <td>{{ S16_50ahPUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ S16_50ahPrize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                        <tr>
+                            <td>LifePO4 16S 100A - Smart</td>
+                            <td>{{ S16_100ah|floatformat:"0" }}</td>
+                            <td>{{ S16_100ahPUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ S16_100ahPrize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                        <tr>
+                            <td>LifePO4 16S 200A - Smart</td>
+                            <td>{{ S16_200ah|floatformat:"0" }}</td>
+                            <td>{{ S16_200ahPUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ S16_200ahPrize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                        <tr>
+                            <td>LifePO4 19S 60A</td>
+                            <td>{{ S19_60ah|floatformat:"0" }}</td>
+                            <td>{{ S19_60ahPUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ S19_60ahPrize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                        <tr>
+                            <td>LifePO4 19S 100A - Smart</td>
+                            <td>{{ S19_100ah|floatformat:"0" }}</td>
+                            <td>{{ S19_100ahPUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ S19_100ahPrize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                        <tr>
+                            <td>LifePO4 20S 60A</td>
+                            <td>{{ S20_60ah|floatformat:"0" }}</td>
+                            <td>{{ S20_60ahPUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ S20_60ahPrize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                        <tr>
+                            <td>LifePO4 20S 100A - Smart</td>
+                            <td>{{ S20_100ah|floatformat:"0" }}</td>
+                            <td>{{ S20_100ahPUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ S20_100ahPrize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                        <tr>
+                            <td>LifePO4 23S 50A</td>
+                            <td>{{ S23_50ah|floatformat:"0" }}</td>
+                            <td>{{ S23_50ahPUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ S23_50ahPrize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                        <tr>
+                            <td>LifePO4 23S 100A - Smart</td>
+                            <td>{{ S23_100ah|floatformat:"0" }}</td>
+                            <td>{{ S23_100ahPUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ S23_100ahPrize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                        <tr>
+                            <td>LifePO4 24S 50A</td>
+                            <td>{{ S24_50ah|floatformat:"0" }}</td>
+                            <td>{{ S24_50ahPUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ S24_50ahPrize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                        <tr>
+                            <td>LifePO4 24S 100A - Smart</td>
+                            <td>{{ S24_100ah|floatformat:"0" }}</td>
+                            <td>{{ S24_100ahPUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ S24_100ahPrize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- BMS Detail -->
+
+            <!-- Battery-Pack Detail -->
+            <div class="battery_pack box" style="display: contents;">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Battery Pack in Stock</h6>
+                </div>
+                <table class="table table-striped">
+                    <thead class="thead-dark">
+                        <tr class="header">
+                            <th>Battery Type</th>
+                            <th>Quantity</th>
+                            <th>Per Unit Price</th>
+                            <th>Total Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>LifePO4 12V 25Ah</td>
+                            <td>{{ V12_25ah|floatformat:"0" }}</td>
+                            <td>{{ V12_25ahPUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ V12_25ahPrize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                        <tr>
+                            <td>LifePO4 12V 40Ah</td>
+                            <td>{{ V12_40ah|floatformat:"0" }}</td>
+                            <td>{{ V12_40ahPUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ V12_40ahPrize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                        <tr>
+                            <td>LifePO4 12V 50Ah</td>
+                            <td>{{ V12_50ah|floatformat:"0" }}</td>
+                            <td>{{ V12_50ahPUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ V12_50ahPrize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                        <tr>
+                            <td>LifePO4 12V 100Ah</td>
+                            <td>{{ V12_100ah|floatformat:"0" }}</td>
+                            <td>{{ V12_100ahPUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ V12_100ahPrize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                        <tr>
+                            <td>LifePO4 12V 200Ah</td>
+                            <td>{{ V12_200ah|floatformat:"0" }}</td>
+                            <td>{{ V12_200ahPUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ V12_200ahPrize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                        <tr>
+                            <td>LifePO4 24V 50Ah</td>
+                            <td>{{ V24_50ah|floatformat:"0" }}</td>
+                            <td>{{ V24_50ahPUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ V24_50ahPrize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                        <tr>
+                            <td>LifePO4 24V 100Ah</td>
+                            <td>{{ V24_100ah|floatformat:"0" }}</td>
+                            <td>{{ V24_100ahPUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ V24_100ahPrize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                        <tr>
+                            <td>LifePO4 24V 200Ah</td>
+                            <td>{{ V24_200ah|floatformat:"0" }}</td>
+                            <td>{{ V24_200ahPUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ V24_200ahPrize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                        <tr>
+                            <td>LifePO4 48V 25Ah</td>
+                            <td>{{ V48_25ah|floatformat:"0" }}</td>
+                            <td>{{ V48_25ahPUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ V48_25ahPrize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                        <tr>
+                            <td>LifePO4 48V 40Ah</td>
+                            <td>{{ V48_40ah|floatformat:"0" }}</td>
+                            <td>{{ V48_40ahPUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ V48_40ahPrize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                        <tr>
+                            <td>LifePO4 48V 50Ah</td>
+                            <td>{{ V48_50ah|floatformat:"0" }}</td>
+                            <td>{{ V48_50ahPUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ V48_50ahPrize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                        <tr>
+                            <td>LifePO4 48V 100Ah</td>
+                            <td>{{ V48_100ah|floatformat:"0" }}</td>
+                            <td>{{ V48_100ahPUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ V48_100ahPrize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                        <tr>
+                            <td>LifePO4 48V 200Ah</td>
+                            <td>{{ V48_200ah|floatformat:"0" }}</td>
+                            <td>{{ V48_200ahPUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ V48_200ahPrize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                        <tr>
+                            <td>LifePO4 60V 25Ah</td>
+                            <td>{{ V60_25ah|floatformat:"0" }}</td>
+                            <td>{{ V60_25ahPUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ V60_25ahPrize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                        <tr>
+                            <td>LifePO4 60V 40Ah</td>
+                            <td>{{ V60_40ah|floatformat:"0" }}</td>
+                            <td>{{ V60_40ahPUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ V60_40ahPrize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                        <tr>
+                            <td>LifePO4 60V 50Ah</td>
+                            <td>{{ V60_50ah|floatformat:"0" }}</td>
+                            <td>{{ V60_50ahPUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ V60_50ahPrize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                        <tr>
+                            <td>LifePO4 60V 100Ah</td>
+                            <td>{{ V60_100ah|floatformat:"0" }}</td>
+                            <td>{{ V60_100ahPUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ V60_100ahPrize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                        <tr>
+                            <td>LifePO4 72V 25Ah</td>
+                            <td>{{ V72_25ah|floatformat:"0" }}</td>
+                            <td>{{ V72_25ahPUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ V72_25ahPrize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                        <tr>
+                            <td>LifePO4 72V 40Ah</td>
+                            <td>{{ V72_40ah|floatformat:"0" }}</td>
+                            <td>{{ V72_40ahPUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ V72_40ahPrize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                        <tr>
+                            <td>LifePO4 72V 50Ah</td>
+                            <td>{{ V72_50ah|floatformat:"0" }}</td>
+                            <td>{{ V72_50ahPUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ V72_50ahPrize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                        <tr>
+                            <td>LifePO4 72V 100Ah</td>
+                            <td>{{ V72_100ah|floatformat:"0" }}</td>
+                            <td>{{ V72_100ahPUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ V72_100ahPrize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                        <tr>
+                            <td>LifePO4 72V 200Ah</td>
+                            <td>{{ V72_200ah|floatformat:"0" }}</td>
+                            <td>{{ V72_200ahPUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ V72_200ahPrize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- Battery-Pack Detail -->
+
+            <!-- Bike-Conversion-Kit Detail -->
+            <div class="bike_pack box" style="display: contents;">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Bike-Kit in Stock</h6>
+                </div>
+                <table class="table table-striped">
+                    <thead class="thead-dark">
+                        <tr class="header">
+                            <th>Bike Type</th>
+                            <th>Quantity</th>
+                            <th>Per Unit Price</th>
+                            <th>Total Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Bike 1</td>
+                            <td>{{ bike1|floatformat:"0" }}</td>
+                            <td>{{ bike1PUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ bike1Prize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                        <tr>
+                            <td>Bike 2</td>
+                            <td>{{ bike2|floatformat:"0" }}</td>
+                            <td>{{ bike2PUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ bike2Prize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                        <tr>
+                            <td>Bike 3</td>
+                            <td>{{ bike3|floatformat:"0" }}</td>
+                            <td>{{ bike3PUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ bike3Prize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                        <tr>
+                            <td>Bike 4</td>
+                            <td>{{ bike4|floatformat:"0" }}</td>
+                            <td>{{ bike4PUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ bike4Prize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- Bike-Conversion-Kit Detail -->
+
+            <!-- Bike-Accessories Detail -->
+            <div class="bike_accessory box" style="display: contents;">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Bike Accessories in Stock</h6>
+                </div>
+                <table class="table table-striped">
+                    <thead class="thead-dark">
+                        <tr class="header">
+                            
+                            <th>Accessories Name</th>
+                            <th>Quantity</th>
+                            <th>Per Unit Price</th>
+                            <th>Total Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Motor 1</td>
+                            <td>{{ motor1|floatformat:"0" }}</td>
+                            <td>{{ motor1PUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ motor1Prize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                        <tr>
+                            <td>Motor 2</td>
+                            <td>{{ motor2|floatformat:"0" }}</td>
+                            <td>{{ motor2PUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ motor2Prize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                        <tr>
+                            <td>Motor 3</td>
+                            <td>{{ motor3|floatformat:"0" }}</td>
+                            <td>{{ motor3PUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ motor3Prize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                        <tr>
+                            <td>Motor 4</td>
+                            <td>{{ motor4|floatformat:"0" }}</td>
+                            <td>{{ motor4PUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ motor4Prize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                        <tr>
+                            <td>Controller 1</td>
+                            <td>{{ controller1|floatformat:"0" }}</td>
+                            <td>{{ controller1PUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ controller1Prize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                        <tr>
+                            <td>Controller 2</td>
+                            <td>{{ controller2|floatformat:"0" }}</td>
+                            <td>{{ controller2PUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ controller2Prize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                        <tr>
+                            <td>Controller 3</td>
+                            <td>{{ controller3|floatformat:"0" }}</td>
+                            <td>{{ controller3PUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ controller3Prize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                        <tr>
+                            <td>Controller 4</td>
+                            <td>{{ controller4|floatformat:"0" }}</td>
+                            <td>{{ controller4PUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ controller4Prize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                        <tr>
+                            <td>Throttle</td>
+                            <td>{{ throttle|floatformat:"0" }}</td>
+                            <td>{{ throttlePUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ throttlePrize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                        <tr>
+                            <td>Brakes</td>
+                            <td>{{ brake|floatformat:"0" }}</td>
+                            <td>{{ brakePUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ brakePrize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                        <tr>
+                            <td>Spokes</td>
+                            <td>{{ spokes|floatformat:"0" }}</td>
+                            <td>{{ spokesPUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ spokesPrize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- Bike-Accessories Detail -->
+
+            <!-- Battery-Accessories Detail -->
+            <div class="battery_accessory box" style="display: contents;">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Battery Accessories in Stock</h6>
+                </div>
+                <table class="table table-striped">
+                    <thead class="thead-dark">
+                        <tr class="header">
+                            <th>Accessories Name</th>
+                            <th>Quantity</th>
+                            <th>Per Unit Price</th>
+                            <th>Total Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Enclosure</td>
+                            <td>{{ enclosure|floatformat:"0" }}</td>
+                            <td>{{ enclosurePUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ enclosurePrize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                        <tr>
+                            <td>Breaker</td>
+                            <td>{{ breaker|floatformat:"0" }}</td>
+                            <td>{{ breakerPUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ breakerPrize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                        <tr>
+                            <td>Display</td>
+                            <td>{{ display|floatformat:"0" }}</td>
+                            <td>{{ displayPUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ displayPrize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                        <tr>
+                            <td>Banana Connector</td>
+                            <td>{{ B_Connector|floatformat:"0" }}</td>
+                            <td>{{ B_ConnectorPUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ B_ConnectorPrize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                        <tr>
+                            <td>Wire</td>
+                            <td>{{ wire|floatformat:"0" }}</td>
+                            <td>{{ wirePUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ wirePrize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                        <tr>
+                            <td>Thimble</td>
+                            <td>{{ thimble|floatformat:"0" }}</td>
+                            <td>{{ thimblePUP|floatformat:"2"|intcomma }}</td>
+                            <td>{{ thimblePrize|floatformat:"2"|intcomma }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- Battery-Accessories Detail -->
+
+
+    </div>
+
+    <!-- /.container-fluid -->
+{% endblock content%}
+{% block ScriptBlock %}
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+            $(document).ready(function () {
+                $("#color-selector")
+                    .change(function () {
+                        $(this)
+                            .find("option:selected")
+                            .each(function () {
+                                var optionValue = $(this).attr("value");
+                                if (optionValue) {
+                                    $(".box")
+                                        .not("." + optionValue)
+                                        .hide();
+                                    $("." + optionValue).show();
+                                } else {
+                                    $(".box").hide();
+                                }
+                            });
+                    })
+                    .change();
+            });
+            function performSearch() {
+
+                  // Declare search string
+                  var filter = searchBox.value.toUpperCase();
+
+                  // Loop through first tbody's rows
+                  for (var rowI = 0; rowI < trs.length; rowI++) {
+
+                        // define the row's cells
+                        var tds = trs[rowI].getElementsByTagName("td");
+
+                        // hide the row
+                        trs[rowI].style.display = "none";
+
+                        // loop through row cells
+                        for (var cellI = 0; cellI < tds.length; cellI++) {
+
+                            // if there's a match
+                            if (tds[cellI].innerHTML.toUpperCase().indexOf(filter) > -1) {
+
+                                // show the row
+                                trs[rowI].style.display = "";
+
+                                // skip to the next row
+                                continue;
+
+                            }
+                        }
+                  }
+
+            }
+
+            // declare elements
+            const searchBox = document.getElementById('searchBox');
+            const table = document.getElementById("myTable");
+            const trs = table.tBodies[0].getElementsByTagName("tr");
+
+            // add event listener to search box
+            searchBox.addEventListener('keyup', performSearch);
+        </script>
+{% endblock ScriptBlock %}

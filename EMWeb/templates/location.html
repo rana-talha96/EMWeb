@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block title %} - Devices Locations {% endblock title %}
+
+{% load static %}
+
+{% block content %}
+
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h3>Our Devices Locations</h3>
+                <div id="map" style="height: 400px;width: 100%;"></div>
+            </div>
+        </div>
+    </div>
+    <!-- /.container-fluid -->
+
+{% endblock content%}
+
+{% block ScriptBlock %}
+    <script>
+          function initMap() {
+              console.log({{ xyz.Latitude }});
+              console.log({{ xyz.Longitude }});
+              var uluru = {lat: {{ xyz.Latitude }}, lng: {{ xyz.Longitude }}};
+              var map = new google.maps.Map(document.getElementById('map'), {
+                  zoom: 15,
+                  center: uluru
+              });
+              var marker = new google.maps.Marker({
+                  position: uluru,
+                  map: map
+              });
+          }
+    </script>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyARwquihXyL3f6QM924HLn5CfEz2UHw6tg&callback=initMap">
+    </script>
+{% endblock ScriptBlock %}

@@ -1,0 +1,660 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+        <!-- Page Heading -->
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                    class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+        </div>
+
+        <!-- Content Row -->
+        <div class="row">
+            <!-- Earnings (Monthly) Card Example -->
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <button id="myBtn" class="text-xs font-weight-bold text-primary text-uppercase mb-1" style="font-size: 25px; border: none; background: none">
+                                    New Invoice</button>
+                                <div id="myModal" class="modal">
+                                    <!-- Modal content -->
+                                    <div class="modal-content">
+                                        <div>
+                                            <div> Select Device</div>
+                                            <div class="closee">&times;</div>
+                                        </div>
+                                        <div class="my-2"></div>
+                                        <div>
+                                            <a href="{% url 'add_battery' %}" class="btn btn-primary btn-icon-split btn-lg btn-block">
+                                                <span class="text">Add Battery</span>
+                                            </a>
+                                            <a href="{% url 'add_charger' %}" class="btn btn-success btn-icon-split btn-lg btn-block">
+                                                <span class="text">Add Charger</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fa fa-plus fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Earnings (Monthly) Card Example -->
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-success shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <button id="myBtn1" class="text-xs font-weight-bold text-success text-uppercase mb-1" style="font-size: 25px; border: none; background: none">
+                                    search</button>
+                                <div id="myModal1" class="modal1">
+                                    <!-- Modal content -->
+                                    <div class="modal-content">
+                                        <div>
+                                            <div>Select Device</div>
+                                            <div class="close1">&times;</div>
+                                        </div>
+                                        <div class="my-2"></div>
+                                        <div>
+                                            <a href="{% url 'battery' %}" class="btn btn-primary btn-icon-split btn-lg btn-block">
+                                                <span class="text">Battery</span>
+                                            </a>
+                                            <a href="{% url 'charger' %}" class="btn btn-success btn-icon-split btn-lg btn-block">
+                                                <span class="text">Charger</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-search fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Earnings (Monthly) Card Example -->
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-info shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                                {% if x > 0 %}
+                                    <div class="col mr-2">
+                                        <a href="{% url 'warning' %}" style="text-decoration: none">
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1" style="font-size: 25px">
+                                                Warnings</div>
+                                        </a>
+                                    </div>
+                                    <span class="dot">{{ x }}</span>
+                                {% else %}
+                                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1" style="font-size: 25px">
+                                        Warnings</div>
+                                    </div>
+                                {% endif %}
+                        <div class="col-auto">
+                            <i class="fas fa-exclamation-circle fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pending Requests Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        {% if y > 0 %}
+                            <div class="col mr-2">
+                                <a href="{% url 'warning' %}" style="text-decoration: none">
+                                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1" style="font-size: 25px">
+                                        Alerts</div>
+                                </a>
+                            </div>
+                            <span class="dot1">{{ y }}</span>
+                        {% else %}
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1" style="font-size: 25px">
+                                Alerts</div>
+                            </div>
+                        {% endif %}
+                    <div class="col-auto">
+                        <i class="fas fa-bell fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <!-- Content Row -->
+    <div class="row" style="display: initial">
+        <!-- bar chart -->
+        <div id="barchart"></div>
+    </div>
+
+    <!-- Content Row -->
+    <div class="row">
+        <!-- Area Chart -->
+        <div class="col-xl-8 col-lg-7">
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Installation Overview</h6>
+                    <h6 class="m-0 font-weight-bold text-black">Total Installations: {{ T_Chargers }}</h6>
+                    <div class="dropdown no-arrow">
+                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                             aria-labelledby="dropdownMenuLink">
+                            <div class="dropdown-header">Dropdown Header:</div>
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card Body -->
+                <div class="card-body" style="height: 100%">
+                    <div class="chart-area">
+                        <canvas id="myChart1" height="100%"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pie Chart -->
+        <div class="col-xl-4 col-lg-5">
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
+                    <div class="dropdown no-arrow">
+                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                             aria-labelledby="dropdownMenuLink">
+                            <div class="dropdown-header">Dropdown Header:</div>
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card Body -->
+                <div class="card-body">
+                    <div class="chart-pie pt-4 pb-2" style="height: 320px !important;">
+                        <canvas id="myChart2" style="margin-top:-30px;" height="220px"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Content Row -->
+    <div class="row">
+
+        <!-- Content Column -->
+        <div class="col-lg-6 mb-4">
+            <!-- Project Card Example -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Recent Activity</h6>
+                </div>
+                <div class="card-body">
+                    <h4 class="small font-weight-bold">Server Migration <span
+                            class="float-right">20%</span></h4>
+                    <div class="progress mb-4">
+                        <div class="progress-bar bg-danger" role="progressbar" style="width: 20%"
+                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <h4 class="small font-weight-bold">Sales Tracking <span
+                            class="float-right">40%</span></h4>
+                    <div class="progress mb-4">
+                        <div class="progress-bar bg-warning" role="progressbar" style="width: 40%"
+                             aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <h4 class="small font-weight-bold">Customer Database <span
+                            class="float-right">60%</span></h4>
+                    <div class="progress mb-4">
+                        <div class="progress-bar" role="progressbar" style="width: 60%"
+                             aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <h4 class="small font-weight-bold">Payout Details <span
+                            class="float-right">80%</span></h4>
+                    <div class="progress mb-4">
+                        <div class="progress-bar bg-info" role="progressbar" style="width: 80%"
+                             aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <h4 class="small font-weight-bold">Account Setup <span
+                            class="float-right">Complete!</span></h4>
+                    <div class="progress">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: 100%"
+                             aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Color System -->
+            <div class="row">
+                <div class="col-lg-6 mb-4">
+                    <div class="card bg-primary text-white shadow">
+                        <div class="card-body">
+                            Primary
+                            <div class="text-white-50 small">#4e73df</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-4">
+                    <div class="card bg-success text-white shadow">
+                        <div class="card-body">
+                            Success
+                            <div class="text-white-50 small">#1cc88a</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-4">
+                    <div class="card bg-info text-white shadow">
+                        <div class="card-body">
+                            Info
+                            <div class="text-white-50 small">#36b9cc</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-4">
+                    <div class="card bg-warning text-white shadow">
+                        <div class="card-body">
+                            Warning
+                            <div class="text-white-50 small">#f6c23e</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-4">
+                    <div class="card bg-danger text-white shadow">
+                        <div class="card-body">
+                            Danger
+                            <div class="text-white-50 small">#e74a3b</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-4">
+                    <div class="card bg-secondary text-white shadow">
+                        <div class="card-body">
+                            Secondary
+                            <div class="text-white-50 small">#858796</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-4">
+                    <div class="card bg-light text-black shadow">
+                        <div class="card-body">
+                            Light
+                            <div class="text-black-50 small">#f8f9fc</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-4">
+                    <div class="card bg-dark text-white shadow">
+                        <div class="card-body">
+                            Dark
+                            <div class="text-white-50 small">#5a5c69</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 mb-4">
+
+            <!-- Illustrations -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Illustrations</h6>
+                </div>
+                <div class="card-body">
+                    <div class="text-center">
+                        <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;"
+                             src="{% static 'img/undraw_posting_photo.svg' %}" alt="...">
+                    </div>
+                    <p>Add some quality, svg illustrations to your project courtesy of <a
+                            target="_blank" rel="nofollow" href="https://undraw.co/">unDraw</a>, a
+                        constantly updated collection of beautiful svg images that you can use
+                        completely free and without attribution!</p>
+                    <a target="_blank" rel="nofollow" href="https://undraw.co/">Browse Illustrations on
+                        unDraw &rarr;</a>
+                </div>
+            </div>
+            <!-- Approach -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Development Approach</h6>
+                </div>
+                <div class="card-body">
+                    <p>SB Admin 2 makes extensive use of Bootstrap 4 utility classes in order to reduce
+                        CSS bloat and poor page performance. Custom CSS classes are used to create
+                        custom components and custom utility classes.</p>
+                    <p class="mb-0">Before working with this theme, you should become familiar with the Bootstrap framework, especially the utility classes.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- /.container-fluid -->
+
+{% endblock content%}
+
+{% block ScriptBlock %}
+    <script type="text/javascript">
+        const month = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+        const d = new Date();
+        const year = new Date().getFullYear();
+        const preyear = year - 1;
+        if (month[d.getMonth()] == "Jan") {
+            var xValues = ["Aug "+preyear, "Sep "+preyear,"Oct "+preyear,"Nov "+preyear,"Dec "+preyear, "Jan "+year];
+        }
+        if (month[d.getMonth()] == "Feb") {
+            var xValues = ["Sep "+preyear, "Oct "+preyear,"Nov "+preyear, "Dec "+preyear, "Jan "+year,"Feb "+year];
+        }
+        if (month[d.getMonth()] == "Mar") {
+            var xValues = ["Oct "+preyear, "Nov "+preyear, "Dec "+preyear, "Jan "+year,"Feb "+year,"Mar "+year];
+        }
+        if (month[d.getMonth()] == "Apr") {
+            var xValues = ["Nov "+preyear, "Dec "+preyear, "Jan "+year,"Feb "+year,"Mar "+year,"Apr "+year];
+        }
+        if (month[d.getMonth()] == "May") {
+            var xValues = ["Dec "+preyear, "Jan "+year,"Feb "+year,"Mar "+year,"Apr "+year,"May "+year];
+        }
+        if (month[d.getMonth()] == "Jun") {
+            var xValues = ["Jan "+year, "Feb "+year,"Mar "+year,"Apr "+year,"May "+year,"Jun "+year];
+        }
+        if (month[d.getMonth()] == "Jul") {
+            var xValues = ["Feb "+year, "Mar "+year,"Apr "+year,"May "+year,"Jun "+year,"Jul "+year];
+        }
+        if (month[d.getMonth()] == "Aug") {
+            var xValues = ["Mar "+year, "Apr "+year,"May "+year,"Jun "+year,"Jul "+year,"Aug "+year];
+        }
+        if (month[d.getMonth()] == "Sep") {
+            var xValues = ["Apr "+year, "May "+year,"Jun "+year,"Jul "+year,"Aug "+year,"Sep "+year];
+        }
+        if (month[d.getMonth()] == "Oct") {
+            var xValues = ["May "+year, "Jun "+year,"Jul "+year,"Aug "+year,"Sep "+year,"Oct "+year];
+        }
+        if (month[d.getMonth()] == "Nov") {
+            var xValues = ["Jun "+year, "Jul "+year,"Aug "+year,"Sep "+year,"Oct "+year,"Nov "+year];
+        }
+        if (month[d.getMonth()] == "Dec") {
+            var xValues = ["Jul "+year, "Aug "+year,"Sep "+year,"Oct "+year,"Nov "+year,"Dec "+year];
+        }
+        var battery = [{{ mon6 }},{{ mon5 }},{{ mon4 }},{{ mon3 }},{{ mon2 }},{{ mon1 }}];
+        new Chart("myChart1", {
+            type: "line",
+            data: {
+                labels: xValues,
+                datasets: [{
+                    data: battery,
+                    borderColor: "red",
+                    label: "Battery",
+                    fill: true
+                },
+                {
+                    data: [3,8,1,6,7,2],
+                    borderColor: "blue",
+                    label: "Charger",
+                    fill: true
+                }]
+            },
+            options: {
+                legend: {display: true},
+                scales: {
+                     yAxes: [{
+                         ticks: {
+                             beginAtZero: true,
+                             userCallback: function(label, index, labels) {
+                                 // when the floored value is the same as the value we have a whole number
+                                 if (Math.floor(label) === label) {
+                                     return label;
+                                 }
+
+                             },
+                         }
+                     }],
+                 },
+            }
+        });
+    </script>
+    <script type="text/javascript">
+        anychart.onDocumentLoad(function(){
+            if (month[d.getMonth()] == "Jan") {
+                var dataSet = anychart.data.set([
+                    ['Aug ' + preyear, {{ mon6purchase }}, {{ mon6sale }}, {{ mon6profit }}],
+                    ['Sep ' + preyear, {{ mon5purchase }}, {{ mon5sale }}, {{ mon5profit }}],
+                    ['Oct ' + preyear, {{ mon4purchase }}, {{ mon4sale }}, {{ mon4profit }}],
+                    ['Nov ' + preyear, {{ mon3purchase }}, {{ mon3sale }}, {{ mon3profit }}],
+                    ['Dec ' + preyear, {{ mon2purchase }}, {{ mon2sale }}, {{ mon2profit }}],
+                    ['Jan ' + year, {{ mon1purchase }}, {{ mon1sale }}, {{ mon1profit }}]
+                ]);
+            }
+            if (month[d.getMonth()] == "Feb") {
+                var dataSet = anychart.data.set([
+                    ['Sep '+preyear, {{ mon6purchase }}, {{ mon6sale }}, {{ mon6profit }}],
+                    ['Oct '+preyear, {{ mon5purchase }}, {{ mon5sale }}, {{ mon5profit }}],
+                    ['Nov '+preyear, {{ mon4purchase }}, {{ mon4sale }}, {{ mon4profit }}],
+                    ['Dec '+preyear, {{ mon3purchase }}, {{ mon3sale }}, {{ mon3profit }}],
+                    ['Jan '+year, {{ mon2purchase }}, {{ mon2sale }}, {{ mon2profit }}],
+                    ['Feb '+year, {{ mon1purchase }}, {{ mon1sale }}, {{ mon1profit }}]
+                ]);
+            }
+            if (month[d.getMonth()] == "Mar") {
+                var dataSet = anychart.data.set([
+                    ['Oct '+preyear, {{ mon6purchase }}, {{ mon6sale }}, {{ mon6profit }}],
+                    ['Nov '+preyear, {{ mon5purchase }}, {{ mon5sale }}, {{ mon5profit }}],
+                    ['Dec '+preyear, {{ mon4purchase }}, {{ mon4sale }}, {{ mon4profit }}],
+                    ['Jan '+year, {{ mon3purchase }}, {{ mon3sale }}, {{ mon3profit }}],
+                    ['Feb '+year, {{ mon2purchase }}, {{ mon2sale }}, {{ mon2profit }}],
+                    ['Mar '+year, {{ mon1purchase }}, {{ mon1sale }}, {{ mon1profit }}]
+                ]);
+            }
+            if (month[d.getMonth()] == "Apr") {
+                var dataSet = anychart.data.set([
+                    ['Nov '+preyear, {{ mon6purchase }}, {{ mon6sale }}, {{ mon6profit }}],
+                    ['Dec '+preyear, {{ mon5purchase }}, {{ mon5sale }}, {{ mon5profit }}],
+                    ['Jan '+year, {{ mon4purchase }}, {{ mon4sale }}, {{ mon4profit }}],
+                    ['Feb '+year, {{ mon3purchase }}, {{ mon3sale }}, {{ mon3profit }}],
+                    ['Mar '+year, {{ mon2purchase }}, {{ mon2sale }}, {{ mon2profit }}],
+                    ['Apr '+year, {{ mon1purchase }}, {{ mon1sale }}, {{ mon1profit }}]
+                ]);
+            }
+            if (month[d.getMonth()] == "May") {
+                var dataSet = anychart.data.set([
+                    ['Dec '+preyear, {{ mon6purchase }}, {{ mon6sale }}, {{ mon6profit }}],
+                    ['Jan '+year, {{ mon5purchase }}, {{ mon5sale }}, {{ mon5profit }}],
+                    ['Feb '+year, {{ mon4purchase }}, {{ mon4sale }}, {{ mon4profit }}],
+                    ['Mar '+year, {{ mon3purchase }}, {{ mon3sale }}, {{ mon3profit }}],
+                    ['Apr '+year, {{ mon2purchase }}, {{ mon2sale }}, {{ mon2profit }}],
+                    ['May '+year, {{ mon1purchase }}, {{ mon1sale }}, {{ mon1profit }}]
+                ]);
+            }
+            if (month[d.getMonth()] == "Jun") {
+                var dataSet = anychart.data.set([
+                    ['Jan '+year, {{ mon6purchase }}, {{ mon6sale }}, {{ mon6profit }}],
+                    ['Feb '+year, {{ mon5purchase }}, {{ mon5sale }}, {{ mon5profit }}],
+                    ['Mar '+year, {{ mon4purchase }}, {{ mon4sale }}, {{ mon4profit }}],
+                    ['Apr '+year, {{ mon3purchase }}, {{ mon3sale }}, {{ mon3profit }}],
+                    ['May '+year, {{ mon2purchase }}, {{ mon2sale }}, {{ mon2profit }}],
+                    ['Jun '+year, {{ mon1purchase }}, {{ mon1sale }}, {{ mon1profit }}]
+                ]);
+            }
+            if (month[d.getMonth()] == "Jul") {
+                var dataSet = anychart.data.set([
+                    ['Feb '+year, {{ mon6purchase }}, {{ mon6sale }}, {{ mon6profit }}],
+                    ['Mar '+year, {{ mon5purchase }}, {{ mon5sale }}, {{ mon5profit }}],
+                    ['Apr '+year, {{ mon4purchase }}, {{ mon4sale }}, {{ mon4profit }}],
+                    ['May '+year, {{ mon3purchase }}, {{ mon3sale }}, {{ mon3profit }}],
+                    ['Jun '+year, {{ mon2purchase }}, {{ mon2sale }}, {{ mon2profit }}],
+                    ['Jul '+year, {{ mon1purchase }}, {{ mon1sale }}, {{ mon1profit }}]
+                ]);
+            }
+            if (month[d.getMonth()] == "Aug") {
+                var dataSet = anychart.data.set([
+                    ['Mar '+year, {{ mon6purchase }}, {{ mon6sale }}, {{ mon6profit }}],
+                    ['Apr '+year, {{ mon5purchase }}, {{ mon5sale }}, {{ mon5profit }}],
+                    ['May '+year, {{ mon4purchase }}, {{ mon4sale }}, {{ mon4profit }}],
+                    ['Jun '+year, {{ mon3purchase }}, {{ mon3sale }}, {{ mon3profit }}],
+                    ['Jul '+year, {{ mon2purchase }}, {{ mon2sale }}, {{ mon2profit }}],
+                    ['Aug '+year, {{ mon1purchase }}, {{ mon1sale }}, {{ mon1profit }}]
+                ]);
+            }
+            if (month[d.getMonth()] == "Sep") {
+                var dataSet = anychart.data.set([
+                    ['Apr '+year, {{ mon6purchase }}, {{ mon6sale }}, {{ mon6profit }}],
+                    ['May '+year, {{ mon5purchase }}, {{ mon5sale }}, {{ mon5profit }}],
+                    ['Jun '+year, {{ mon4purchase }}, {{ mon4sale }}, {{ mon4profit }}],
+                    ['Jul '+year, {{ mon3purchase }}, {{ mon3sale }}, {{ mon3profit }}],
+                    ['Aug '+year, {{ mon2purchase }}, {{ mon2sale }}, {{ mon2profit }}],
+                    ['Sep '+year, {{ mon1purchase }}, {{ mon1sale }}, {{ mon1profit }}]
+                ]);
+            }
+            if (month[d.getMonth()] == "Oct") {
+                var dataSet = anychart.data.set([
+                    ['May '+year, {{ mon6purchase }}, {{ mon6sale }}, {{ mon6profit }}],
+                    ['Jun '+year, {{ mon5purchase }}, {{ mon5sale }}, {{ mon5profit }}],
+                    ['Jul '+year, {{ mon4purchase }}, {{ mon4sale }}, {{ mon4profit }}],
+                    ['Aug '+year, {{ mon3purchase }}, {{ mon3sale }}, {{ mon3profit }}],
+                    ['Sep '+year, {{ mon2purchase }}, {{ mon2sale }}, {{ mon2profit }}],
+                    ['Oct '+year, {{ mon1purchase }}, {{ mon1sale }}, {{ mon1profit }}]
+                ]);
+            }
+            if (month[d.getMonth()] == "Nov") {
+                var dataSet = anychart.data.set([
+                    ['Jun '+year, {{ mon6purchase }}, {{ mon6sale }}, {{ mon6profit }}],
+                    ['Jul '+year, {{ mon5purchase }}, {{ mon5sale }}, {{ mon5profit }}],
+                    ['Aug '+year, {{ mon4purchase }}, {{ mon4sale }}, {{ mon4profit }}],
+                    ['Sep '+year, {{ mon3purchase }}, {{ mon3sale }}, {{ mon3profit }}],
+                    ['Oct '+year, {{ mon2purchase }}, {{ mon2sale }}, {{ mon2profit }}],
+                    ['Nov '+year, {{ mon1purchase }}, {{ mon1sale }}, {{ mon1profit }}]
+                ]);
+            }
+            if (month[d.getMonth()] == "Dec") {
+                var dataSet = anychart.data.set([
+                    ['Jul '+year, {{ mon6purchase }}, {{ mon6sale }}, {{ mon6profit }}],
+                    ['Aug '+year, {{ mon5purchase }}, {{ mon5sale }}, {{ mon5profit }}],
+                    ['Sep '+year, {{ mon4purchase }}, {{ mon4sale }}, {{ mon4profit }}],
+                    ['Oct '+year, {{ mon3purchase }}, {{ mon3sale }}, {{ mon3profit }}],
+                    ['Nov '+year, {{ mon2purchase }}, {{ mon2sale }}, {{ mon2profit }}],
+                    ['Dec '+year, {{ mon1purchase }}, {{ mon1sale }}, {{ mon1profit }}]
+                ]);
+            }
+
+            var chart = anychart.column();
+
+            chart.column(dataSet.mapAs({value:1,x:0})).name('Purchase');
+            chart.column(dataSet.mapAs({value:2,x:0})).name('Sales');
+            chart.column(dataSet.mapAs({value:3,x:0})).name('Profit');
+
+            chart.grid(0,{layout:'vertical'})
+            chart.barGroupsPadding(3)
+
+            chart.legend(true);
+            chart.title('Compare sales strategy')
+            chart.yScale().minimum(0);
+            chart.container('barchart');
+            chart.draw();
+        });
+    </script>
+    <script>
+        var xValues = ["Commercial", "Military", "Single"];
+        var yValues = [ 49, 44, 24];
+        var barColors = [
+          "#b91d47",
+          "#00aba9",
+          "#2b5797",
+        ];
+
+        new Chart("myChart2", {
+          type: "doughnut",
+          data: {
+            labels: xValues,
+            datasets: [{
+              backgroundColor: barColors,
+              data: yValues
+            }]
+          },
+          options: {
+            title: {
+              display: true,
+            }
+          }
+        });
+    </script>
+    <script>
+        // Get the modal
+        var modal = document.getElementById("myModal");
+
+        // Get the button that opens the modal
+        var btn = document.getElementById("myBtn");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("closee")[0];
+
+        // When the user clicks the button, open the modal
+        btn.onclick = function() {
+          modal.style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+          modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+          if (event.target == modal) {
+            modal.style.display = "none";
+          }
+        }
+    </script>
+    <script>
+        // Get the modal
+        var modal1 = document.getElementById("myModal1");
+
+        // Get the button that opens the modal
+        var btn = document.getElementById("myBtn1");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close1")[0];
+
+        // When the user clicks the button, open the modal
+        btn.onclick = function() {
+          modal1.style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+          modal1.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+          if (event.target == modal1) {
+            modal1.style.display = "none";
+          }
+        }
+    </script>
+{% endblock ScriptBlock %}

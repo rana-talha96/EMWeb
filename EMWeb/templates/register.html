@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Electro Motives- Signup</title>
+    <link rel = "icon" href ="{% static 'img/logo.png' %}?{% now "U" %}" type = "image/x-icon">
+
+    <!-- Custom fonts for this template-->
+    <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'scss/fonts.scss' %}?{% now "U" %}" rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
+
+</head>
+
+<body class="bg-gradient-primary">
+
+    <div class="container">
+
+        <div class="card o-hidden border-0 shadow-lg my-5">
+            <div class="card-body p-0">
+                <!-- Nested Row within Card Body -->
+                <div class="row">
+                    <div class="col-lg-5 d-none d-lg-block" style="background: url('{% static 'img/register.jpg' %}'); background-position: center; background-size: cover;"></div>
+                    <div class="col-lg-7">
+                        <div class="p-5">
+                            <div class="text-center">
+                                <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
+                            </div>
+                            <form class="user" action="" method="post">
+                                {% for message in messages %}
+                                    <div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
+                                        <strong>Message:-</strong>{{ message }}
+                                        <button type="button", class="close", data-dismiss="alert", aria-label="close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                {% endfor %}
+                                {%  csrf_token %}
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <label for="fname"></label>
+                                        <input type="text" class="form-control form-control-user" id="fname" name="fname"
+                                               placeholder="First Name" required>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label for="lname"></label>
+                                        <input type="text" class="form-control form-control-user" id="lname" name="lname"
+                                               placeholder="Last Name">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="username"></label>
+                                    <input type="text" class="form-control form-control-user" id="username" name="username"
+                                           placeholder="Enter User Name"required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email"></label>
+                                    <input type="email" class="form-control form-control-user" id="email" name="email"
+                                           placeholder="Email Address" required>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <label for="pass1"></label>
+                                        <input type="password" class="form-control form-control-user" id="pass1" name="pass1"
+                                               placeholder="Password" required>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label for="pass2"></label>
+                                        <input type="password" class="form-control form-control-user" id="pass2" name="pass2"
+                                               placeholder="Repeat Password" required>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-user btn-block">
+                                    Register Account
+                                </button>
+                                <hr>
+                                <div class="text-center text-decoration-none">
+                                    <a class="sidebar-brand d-flex align-items-center justify-content-center" style="text-decoration: none" href="{% url 'index' %}">
+                                        <div>
+                                            <img src="{% static 'img/logo.png' %}" style="width: 60px">
+                                            <div style="font-family:'Futura Md BT';letter-spacing: 4px;font-size: x-large">ElectroMotives</div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </form>
+                            <hr>
+                            <div class="text-center">
+                                <a class="small" href="{% url 'forgot-password' %}">Forgot Password?</a>
+                            </div>
+                            <div class="text-center">
+                                <a class="small" href="{% url 'login' %}">Already have an account? Login!</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
+
+</body>
+
+</html>

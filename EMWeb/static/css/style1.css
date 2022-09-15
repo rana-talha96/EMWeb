@@ -1,0 +1,22 @@
+.dot {
+  height: 30px;
+  width: 30px;
+  background-color: yellow;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 25px;
+  text-align: center;
+  font-size: 20px;
+}
+
+.dot1 {
+  height: 30px;
+  width: 30px;
+  background-color: red;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 25px;
+  text-align: center;
+  color: white;
+  font-size: 20px;
+}

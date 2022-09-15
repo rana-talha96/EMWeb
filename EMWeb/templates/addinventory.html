@@ -1,0 +1,438 @@
+{% extends 'base.html' %}
+{% block title %}- Add Inventory {% endblock title %}
+{% block CSSBlock %}
+<style>
+    .box{
+        color: #fff;
+        padding: 20px;
+        display: none;
+        margin-top: 20px;
+    }
+</style>
+{% endblock CSSBlock %}
+{% load static %}
+
+{% block content %}
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+        <h1>Add Inventory Details</h1>
+{#        <form action="" method="post">#}
+{#            {% csrf_token %}#}
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <select id="color-selector" class="form-control">
+                        <option>Choose Item to Add</option>
+                        <option value="cell">Cell</option>
+                        <option value="bms">BMS</option>
+                        <option value="battery_pack">Complete Battery Pack</option>
+                        <option value="bike_pack">Complete Bike Conversion Kit</option>
+                        <option value="bike_accessory">Bike Accessory</option>
+                        <option value="battery_accessory">Battery Accessory</option>
+                    </select>
+                </div>
+            </div>
+            <!-- Add Cell Detail -->
+            <div class="cell box" style="display: contents;">
+                <form action="../../AddCell/" method="post">
+                {% csrf_token %}
+                    <div class="form-group row">
+                        <div class="col-sm-6">
+                            <label for="Cell_Type"></label>
+                            <select class="form-control" id="Cell_Type" name="Cell_Type">
+                                {% for cell in Cell_Type %}
+                                    <option>{{ cell }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-sm-6 mb-3 mb-sm-0">
+                            <label for="Cell_qty"></label>
+                            <input type="float" class="form-control form-control-user" id="Cell_qty" name="Cell_qty"
+                                   placeholder="Enter Cell Quantity" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-6 mb-3 mb-sm-0">
+                            <label for="Cell_price"></label>
+                            <input type="text" class="form-control form-control-user" id="Cell_price" name="Cell_price"
+                                   placeholder="Cells Price">
+                        </div>
+                        <div class="col-sm-6 mb-3 mb-sm-0">
+                            <label for="CellInvoiceNo"></label>
+                            <input type="float" class="form-control form-control-user" id="CellInvoiceNo" name="CellInvoiceNo"
+                                   placeholder="Enter Invoice Number">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-6 mb-3 mb-sm-0">
+                            <label for="CellDescription"></label>
+                            <input type="text" class="form-control form-control-user" id="CellDescription" name="CellDescription"
+                                   placeholder="Enter Description">
+                        </div>
+                        <div class="col-sm-6 mb-3 mb-sm-0">
+                            <label for="User"></label>
+                            <input type="hidden" class="form-control form-control-user" id="User" name="User"
+                                   value="{{ activeuser }}">
+                        </div>
+                    </div>
+                    <br>
+                    <button type="submit" value="submit" class="btn btn-primary mb-2">Submit</button>
+                </form>
+            </div>
+            <!-- Add Cell Detail -->
+
+            <!-- Add BMS Detail -->
+            <div class="bms box" style="display: contents;">
+            <form action="../../AddBMS/" method="post">
+            {% csrf_token %}
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <label for="BMS_Type"></label>
+                        <select class="form-control" id="BMS_Type" name="BMS_Type">
+                            {% for bms in BMS_Type %}
+                                <option>{{ bms }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-sm-6 mb-3 mb-sm-0">
+                        <label for="BMSType"></label>
+                        <select class="form-control" id="BMSType" name="BMSType">
+                                <option>Simple</option>
+                                <option>Smart</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <label for="BMS_qty"></label>
+                        <input type="float" class="form-control form-control-user" id="BMS_qty" name="BMS_qty"
+                               placeholder="Enter BMS Quantity" required>
+                    </div>
+                    <div class="col-sm-6 mb-3 mb-sm-0">
+                        <label for="BMS_price"></label>
+                        <input type="float" class="form-control form-control-user" id="BMS_price" name="BMS_price"
+                               placeholder="BMS Price" required>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-6 mb-3 mb-sm-0">
+                        <label for="BMSDescription"></label>
+                        <input type="text" class="form-control form-control-user" id="BMSDescription" name="BMSDescription"
+                               placeholder="Enter Description">
+                    </div>
+                    <div class="col-sm-6 mb-3 mb-sm-0">
+                        <label for="BMSInvoiceNo"></label>
+                        <input type="text" class="form-control form-control-user" id="BMSInvoiceNo" name="BMSInvoiceNo"
+                               placeholder="Enter Invoice Number">
+                    </div>
+                    <div class="col-sm-6 mb-3 mb-sm-0">
+                        <label for="User"></label>
+                        <input type="hidden" class="form-control form-control-user" id="User" name="User"
+                               value="{{ activeuser }}">
+                    </div>
+                </div>
+                <br>
+                <button type="submit" value="submit" class="btn btn-primary mb-2">Submit</button>
+            </form>
+            </div>
+            <!-- Add BMS Detail -->
+
+            <!-- Add Battery-Pack Detail -->
+            <div class="battery_pack box" style="display: contents;">
+            <form action="../../AddBattery/" method="post">
+            {% csrf_token %}
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <label for="Battery_pack"></label>
+                        <select class="form-control" id="Battery_pack" name="Battery_pack">
+                            {% for battery in Battery_pack %}
+                                <option>{{ battery }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-sm-6 mb-3 mb-sm-0">
+                        <label for="Battery_pack_qty"></label>
+                        <input type="float" class="form-control form-control-user" id="Battery_pack_qty" name="Battery_pack_qty"
+                               placeholder="Enter Battery Pack Quantity">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-6 mb-3 mb-sm-0">
+                        <label for="Battery_pack_price"></label>
+                        <input type="float" class="form-control form-control-user" id="Battery_pack_price" name="Battery_pack_price"
+                               placeholder="Battery Price" required>
+                    </div>
+                    <div class="col-sm-6 mb-3 mb-sm-0">
+                        <label for="BatteryInvoiceNo"></label>
+                        <input type="text" class="form-control form-control-user" id="BatteryInvoiceNo" name="BatteryInvoiceNo"
+                               placeholder="Enter Invoice Number">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-6 mb-3 mb-sm-0">
+                        <label for="BatteryDescription"></label>
+                        <input type="text" class="form-control form-control-user" id="BatteryDescription" name="BatteryDescription"
+                               placeholder="Enter Description">
+                    </div>
+                    <div class="col-sm-6 mb-3 mb-sm-0">
+                        <label for="User"></label>
+                        <input type="hidden" class="form-control form-control-user" id="User" name="User"
+                               value="{{ activeuser }}">
+                    </div>
+                </div>
+
+                <button type="submit" value="submit" class="btn btn-primary mb-2">Submit</button>
+            </form>
+            </div>
+            <!-- Add Battery-Pack Detail -->
+
+            <!-- Add Bike-Conversion-Kit Detail -->
+            <div class="bike_pack box" style="display: contents;">
+                <form action="../../AddBike/" method="post">
+                    {% csrf_token %}
+                    <div class="form-group row">
+                        <div class="col-sm-6">
+                            <label for="Bike_pack"></label>
+                            <select class="form-control" id="Bike_pack" name="Bike_pack">
+                                {% for bike in Bike_pack %}
+                                    <option>{{ bike }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-sm-6 mb-3 mb-sm-0">
+                            <label for="Bike_pack_qty"></label>
+                            <input type="float" class="form-control form-control-user" id="Bike_pack_qty" name="Bike_pack_qty"
+                                   placeholder="Bike-Kit Quantity">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-6 mb-3 mb-sm-0">
+                            <label for="Bike_pack_price"></label>
+                            <input type="float" class="form-control form-control-user" id="Bike_pack_price" name="Bike_pack_price"
+                                   placeholder="Bike Price">
+                        </div>
+                        <div class="col-sm-6 mb-3 mb-sm-0">
+                            <label for="BikeInvoiceNo"></label>
+                            <input type="text" class="form-control form-control-user" id="BikeInvoiceNo" name="BikeInvoiceNo"
+                                   placeholder="Enter Invoice Number">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-6 mb-3 mb-sm-0">
+                            <label for="BikeDescription"></label>
+                            <input type="text" class="form-control form-control-user" id="BikeDescription" name="BikeDescription"
+                                   placeholder="Enter Description">
+                        </div>
+                        <div class="col-sm-6 mb-3 mb-sm-0">
+                            <label for="User"></label>
+                            <input type="hidden" class="form-control form-control-user" id="User" name="User"
+                                   value="{{ activeuser }}">
+                        </div>
+                    </div>
+                    <button type="submit" value="submit" class="btn btn-primary mb-2">Submit</button>
+                </form>
+            </div>
+            <!-- Add Bike-Conversion-Kit Detail -->
+
+            <!-- Add Bike-Accessories Detail -->
+            <div class="bike_accessory box" style="display: contents;">
+            <form action="../../AddBikeAccess/" method="post">
+            {% csrf_token %}
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <label for="motor_type"></label>
+                        <select class="form-control" id="motor_type" name="motor_type">
+                            {% for motor in motor_type %}
+                                <option>{{ motor }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-sm-6 mb-3 mb-sm-0" style="display: flex; margin-top: 24px;">
+                        <label for="motor_qty"></label>
+                        <input type="float" class="form-control form-control-user" id="motor_qty" name="motor_qty"
+                               placeholder="Motor Quantity">
+                        <label for="motor_price"></label>
+                        <input type="float" class="form-control form-control-user" id="motor_price" name="motor_price"
+                               placeholder="Motor Price">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <label for="controller_type"></label>
+                        <select class="form-control" id="controller_type" name="controller_type">
+                            {% for controller in controller_type %}
+                                <option>{{ controller }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-sm-6 mb-3 mb-sm-0" style="display: flex; margin-top: 24px;">
+                        <label for="controller_qty"></label>
+                        <input type="float" class="form-control form-control-user" id="controller_qty" name="controller_qty"
+                               placeholder="Controller Quantity">
+                        <label for="controller_price"></label>
+                        <input type="float" class="form-control form-control-user" id="controller_price" name="controller_price"
+                               placeholder="Controller Price">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-6 mb-3 mb-sm-0" style="display: flex; margin-top: 24px;">
+                        <label for="throttle"></label>
+                        <input type="float" class="form-control form-control-user" id="throttle" name="throttle"
+                               placeholder="Throttle Quantity">
+                        <label for="throttle_price"></label>
+                        <input type="float" class="form-control form-control-user" id="throttle_price" name="throttle_price"
+                               placeholder="Throttle Price">
+                    </div>
+                    <div class="col-sm-6 mb-3 mb-sm-0" style="display: flex; margin-top: 24px;">
+                        <label for="brake"></label>
+                        <input type="float" class="form-control form-control-user" id="brake" name="brake"
+                               placeholder="Brake Quantity">
+                        <label for="brake_price"></label>
+                        <input type="float" class="form-control form-control-user" id="brake_price" name="brake_price"
+                               placeholder="Brake Price">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-6 mb-3 mb-sm-0" style="display: flex; margin-top: 24px;">
+                        <label for="spokes"></label>
+                        <input type="float" class="form-control form-control-user" id="spokes" name="spokes"
+                               placeholder="Spokes Quantity">
+                        <label for="spokes_price"></label>
+                        <input type="float" class="form-control form-control-user" id="spokes_price" name="spokes_price"
+                               placeholder="Spokes Price">
+                    </div>
+                    <div class="col-sm-6 mb-3 mb-sm-0">
+                        <label for="Bike_InvoiceNo"></label>
+                        <input type="text" class="form-control form-control-user" id="Bike_InvoiceNo" name="Bike_InvoiceNo"
+                               placeholder="Enter Invoice Number">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-6 mb-3 mb-sm-0">
+                        <label for="Bike_Description"></label>
+                            <input type="text" class="form-control form-control-user" id="Bike_Description" name="Bike_Description"
+                                   placeholder="Enter Description">
+                    </div>
+                    <div class="col-sm-6 mb-3 mb-sm-0">
+                        <label for="User"></label>
+                        <input type="hidden" class="form-control form-control-user" id="User" name="User"
+                               value="{{ activeuser }}">
+                    </div>
+                </div>
+                <br>
+                <button type="submit" value="submit" class="btn btn-primary mb-2">Submit</button>
+            </form>
+            </div>
+            <!-- Add Bike-Accessories Detail -->
+
+            <!-- Add Battery-Accessories Detail -->
+            <div class="battery_accessory box" style="display: contents;">
+                <form action="../../AddBatteryAccess/" method="post">
+            {% csrf_token %}
+                <div class="form-group row">
+                    <div class="col-sm-6" style="display: flex; margin-top: 24px;">
+                        <label for="enclosure"></label>
+                        <input type="float" class="form-control form-control-user" id="enclosure" name="enclosure"
+                               placeholder="Enclosure Quantity">
+                        <label for="enclosure_price"></label>
+                        <input type="float" class="form-control form-control-user" id="enclosure_price" name="enclosure_price"
+                               placeholder="Enclosure Price">
+                    </div>
+                    <div class="col-sm-6 mb-3 mb-sm-0" style="display: flex; margin-top: 24px;">
+                        <label for="breaker"></label>
+                        <input type="float" class="form-control form-control-user" id="breaker" name="breaker"
+                               placeholder="Breaker Quantity">
+                        <label for="breaker_price"></label>
+                        <input type="float" class="form-control form-control-user" id="breaker_price" name="breaker_price"
+                               placeholder="Breaker Price">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-6 mb-3 mb-sm-0" style="display: flex; margin-top: 24px;">
+                        <label for="display"></label>
+                        <input type="float" class="form-control form-control-user" id="display" name="display"
+                               placeholder="Display Quantity">
+                        <label for="display_price"></label>
+                        <input type="float" class="form-control form-control-user" id="display_price" name="display_price"
+                               placeholder="Display Price">
+                    </div>
+                    <div class="col-sm-6 mb-3 mb-sm-0" style="display: flex; margin-top: 24px;">
+                        <label for="B_Connector"></label>
+                        <input type="float" class="form-control form-control-user" id="B_Connector" name="B_Connector"
+                               placeholder="Banana Post Connector Quantity">
+                        <label for="B_Connector_price"></label>
+                        <input type="float" class="form-control form-control-user" id="B_Connector_price" name="B_Connector_price"
+                               placeholder="Banana Post Connector Price">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-6 mb-3 mb-sm-0" style="display: flex; margin-top: 24px;">
+                        <label for="wire"></label>
+                        <input type="float" class="form-control form-control-user" id="wire" name="wire"
+                               placeholder="Wire Quantity">
+                        <label for="wire_price"></label>
+                        <input type="float" class="form-control form-control-user" id="wire_price" name="wire_price"
+                               placeholder="Wire Price">
+                    </div>
+                    <div class="col-sm-6 mb-3 mb-sm-0" style="display: flex; margin-top: 24px;">
+                        <label for="thimble"></label>
+                        <input type="float" class="form-control form-control-user" id="thimble" name="thimble"
+                               placeholder="Thimble Quantity">
+                        <label for="thimble_price"></label>
+                        <input type="float" class="form-control form-control-user" id="thimble_price" name="thimble_price"
+                               placeholder="Thimble Price">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-6 mb-3 mb-sm-0">
+                        <label for="Battery_InvoiceNo"></label>
+                        <input type="text" class="form-control form-control-user" id="Battery_InvoiceNo" name="Battery_InvoiceNo"
+                               placeholder="Enter Invoice Number">
+                    </div>
+                    <div class="col-sm-6 mb-3 mb-sm-0">
+                         <label for="Battery_Description"></label>
+                        <input type="text" class="form-control form-control-user" id="Battery_Description" name="Battery_Description"
+                               placeholder="Enter Description">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-6 mb-3 mb-sm-0">
+                        <label for="User"></label>
+                        <input type="hidden" class="form-control form-control-user" id="User" name="User"
+                               value="{{ activeuser }}">
+                    </div>
+                </div>
+                <br>
+                <button type="submit" value="submit" class="btn btn-primary mb-2">Submit</button>
+                    </form>
+            </div>
+            <!-- Add Battery-Accessories Detail -->
+
+{#        </form>#}
+    </div>
+
+    <!-- /.container-fluid -->
+{% endblock content%}
+{% block ScriptBlock %}
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+            $(document).ready(function () {
+                $("#color-selector")
+                    .change(function () {
+                        $(this)
+                            .find("option:selected")
+                            .each(function () {
+                                var optionValue = $(this).attr("value");
+                                if (optionValue) {
+                                    $(".box")
+                                        .not("." + optionValue)
+                                        .hide();
+                                    $("." + optionValue).show();
+                                } else {
+                                    $(".box").hide();
+                                }
+                            });
+                    })
+                    .change();
+            });
+        </script>
+{% endblock ScriptBlock %}

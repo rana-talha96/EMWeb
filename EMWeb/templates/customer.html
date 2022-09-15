@@ -1,0 +1,590 @@
+{% extends 'base.html' %}
+{% block title %}- Add Device {% endblock title %}
+{% block CSSBlock %}
+<style>
+    .box{
+        color: #fff;
+        padding: 20px;
+        display: none;
+        margin-top: 20px;
+    }
+</style>
+{% endblock CSSBlock %}
+{% load static %}
+
+{% block content %}
+
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+        <h1>Add Customer Details</h1>
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="form-group row">
+                <div class="col-sm-6 mb-3 mb-sm-0">
+                    <label for="Ship_No"></label>
+                    <input type="text" class="form-control form-control-user" id="Ship_No" name="Ship_No"
+                           placeholder="Enter Shipping No" required>
+                </div>
+                <div class="col-sm-6">
+                    <label for="DatePur"></label>
+                    <input type="date" class="form-control form-control-user" id="DatePur" name="DatePur" required>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-6 mb-3 mb-sm-0">
+                    <label for="customer_name"></label>
+                    <input type="text" class="form-control form-control-user" id="customer_name" name="customer_name"
+                           placeholder="Customer Name" required>
+                </div>
+                <div class="col-sm-6">
+                    <label for="customer_number"></label>
+                    <input type="text" class="form-control form-control-user" id="customer_number" name="customer_number"
+                           placeholder="Customer Contact Number" required>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-6 mb-3 mb-sm-0">
+                    <label for="customer_address"></label>
+                    <input type="text" class="form-control form-control-user" id="customer_address" name="customer_address"
+                           placeholder="Enter Customer Address" required>
+                </div>
+                <div class="col-sm-6">
+                    <label for="customer_type"></label>
+                    <input type="text" class="form-control form-control-user" id="customer_type" name="customer_type"
+                           placeholder="Individual or Company Name" required>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-6 mb-3 mb-sm-0">
+                    <label for="payment_type"></label>
+                        <select class="form-control" id="payment_type" name="payment_type">
+                            {% for payment in paymenttype %}
+                                <option>{{ payment }}</option>
+                            {% endfor %}
+                        </select>
+                </div>
+                <div class="col-sm-6">
+                    <label for="delivery_type"></label>
+                    <input type="text" class="form-control form-control-user" id="delivery_type" name="delivery_type"
+                           placeholder="Delivery Method" required>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-6 mb-3 mb-sm-0" style="display: flex; margin-top: 24px">
+                    <label for="otheramount"></label>
+                    <input type="float" class="form-control form-control-user" id="otheramount" name="otheramount"
+                           placeholder="Other Amount(if Any)">
+                </div>
+                <div class="col-sm-6">
+                    <label for="customer_use"></label>
+                    <select class="form-control" id="customer_use" name="customer_use">
+                        <option>Home Appliances</option>
+                        <option>Electric Vehicles</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-6 mb-3 mb-sm-0">
+                    <label for="Description"></label>
+                    <input type="text" class="form-control form-control-user" id="Description" name="Description"
+                           placeholder="Enter Description">
+                </div>
+                <div class="col-sm-6 form-check" style="margin-top: 30px;">
+                    <input type="checkbox" id="tax" name="taxamount" value="0.17">
+                    <label for="tax">Included Tax</label>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-6 mb-3 mb-sm-0" style="margin-top: 23px">
+                    <select id="color-selector" class="form-control">
+                        <option>Choose Item to Add</option>
+                        <option value="cell">Cell</option>
+                        <option value="bms">BMS</option>
+                        <option value="battery_pack">Complete Battery Pack</option>
+                        <option value="bike_pack">Complete Bike Conversion Kit</option>
+                        <option value="bike_accessory">Bike Accessory</option>
+                        <option value="battery_accessory">Battery Accessory</option>
+                    </select>
+                </div>
+            </div>
+            <!-- Order Detail -->
+            <div class="cell box" style="display: contents;">
+                <i class="fa fa-plus addcell" style="background-color: #0b5ed7;padding: 10px;border-radius: 10px;cursor: pointer"> Add More</i>
+                <div class="form-group row">
+                    <div class="col-sm-6 mb-3 mb-sm-0">
+                        <label for="Cell_Type"></label>
+                            <select class="form-control" id="Cell_Type" name="Cell_Type">
+                                {% for cell in celltype %}
+                                    <option>{{ cell }}</option>
+                                {% endfor %}
+                            </select>
+                    </div>
+                    <div class="col-sm-6" style="display: flex; margin-top: 24px">
+                        <label for="Cell_qty"></label>
+                        <input type="float" class="form-control form-control-user" id="Cell_qty" name="Cell_qty"
+                               placeholder="Cell Quantity">
+                        <label for="Cell_pup"></label>
+                        <input type="float" class="form-control form-control-user" id="Cell_pup" name="Cell_pup"
+                               placeholder="Cell Price">
+                    </div>
+                </div>
+                <div class="form-group row" id="cell1" style="display: none">
+                    <div class="col-sm-6 mb-3 mb-sm-0">
+                        <label for="Cell_Type1"></label>
+                            <select class="form-control" id="Cell_Type1" name="Cell_Type1">
+                                {% for cell in celltype %}
+                                    <option>{{ cell }}</option>
+                                {% endfor %}
+                            </select>
+                    </div>
+                    <div class="col-sm-6" style="display: flex; margin-top: 24px">
+                        <label for="Cell_qty1"></label>
+                        <input type="float" class="form-control form-control-user" id="Cell_qty1" name="Cell_qty1"
+                               placeholder="Cell Quantity">
+                        <label for="Cell_pup1"></label>
+                        <input type="float" class="form-control form-control-user" id="Cell_pup1" name="Cell_pup1"
+                               placeholder="Cell Price">
+                    </div>
+                </div>
+                <div class="form-group row" id="cell2" style="display: none">
+                    <div class="col-sm-6 mb-3 mb-sm-0">
+                        <label for="Cell_Type2"></label>
+                            <select class="form-control" id="Cell_Type2" name="Cell_Type2">
+                                {% for cell in celltype %}
+                                    <option>{{ cell }}</option>
+                                {% endfor %}
+                            </select>
+                    </div>
+                    <div class="col-sm-6" style="display: flex; margin-top: 24px">
+                        <label for="Cell_qty2"></label>
+                        <input type="float" class="form-control form-control-user" id="Cell_qty2" name="Cell_qty2"
+                               placeholder="Cell Quantity">
+                        <label for="Cell_pup2"></label>
+                        <input type="float" class="form-control form-control-user" id="Cell_pup2" name="Cell_pup2"
+                               placeholder="Cell Price">
+                    </div>
+                </div>
+                <div class="form-group row" id="cell3" style="display: none">
+                    <div class="col-sm-6 mb-3 mb-sm-0">
+                        <label for="Cell_Type3"></label>
+                            <select class="form-control" id="Cell_Type3" name="Cell_Type3">
+                                {% for cell in celltype %}
+                                    <option>{{ cell }}</option>
+                                {% endfor %}
+                            </select>
+                    </div>
+                    <div class="col-sm-6" style="display: flex; margin-top: 24px">
+                        <label for="Cell_qty3"></label>
+                        <input type="float" class="form-control form-control-user" id="Cell_qty3" name="Cell_qty3"
+                               placeholder="Cell Quantity">
+                        <label for="Cell_pup3"></label>
+                        <input type="float" class="form-control form-control-user" id="Cell_pup3" name="Cell_pup3"
+                               placeholder="Cell Price">
+                    </div>
+                </div>
+                <div class="form-group row" id="cell4" style="display: none">
+                    <div class="col-sm-6 mb-3 mb-sm-0">
+                        <label for="Cell_Type4"></label>
+                            <select class="form-control" id="Cell_Type4" name="Cell_Type4">
+                                {% for cell in celltype %}
+                                    <option>{{ cell }}</option>
+                                {% endfor %}
+                            </select>
+                    </div>
+                    <div class="col-sm-6" style="display: flex; margin-top: 24px">
+                        <label for="Cell_qty4"></label>
+                        <input type="float" class="form-control form-control-user" id="Cell_qty4" name="Cell_qty4"
+                               placeholder="Cell Quantity">
+                        <label for="Cell_pup4"></label>
+                        <input type="float" class="form-control form-control-user" id="Cell_pup4" name="Cell_pup4"
+                               placeholder="Cell Price">
+                    </div>
+                </div>
+            </div>
+            <div class="bms box" style="display: contents;">
+                <i class="fa fa-plus addbms" style="background-color: #0b5ed7;padding: 10px;border-radius: 10px;cursor: pointer"> Add More</i>
+                <div class="form-group row">
+                    <div class="col-sm-6 mb-3 mb-sm-0" style="display: flex; margin-top: 24px">
+                        <label for="BMS_Type"></label>
+                            <select class="form-control" id="BMS_Type" name="BMS_Type">
+                                {% for bms in bmstype %}
+                                    <option>{{ bms }}</option>
+                                {% endfor %}
+                            </select>
+                        <label for="BMSType"></label>
+                            <select class="form-control" id="BMSType" name="BMSType">
+                                <option>Simple</option>
+                                <option>Smart</option>
+                            </select>
+                    </div>
+                    <div class="col-sm-6" style="display: flex; margin-top: 24px">
+                        <label for="BMS_qty"></label>
+                        <input type="float" class="form-control form-control-user" id="BMS_qty" name="BMS_qty"
+                               placeholder="BMS Quantity">
+                        <label for="BMS_pup"></label>
+                        <input type="float" class="form-control form-control-user" id="BMS_pup" name="BMS_pup"
+                               placeholder="BMS Price">
+                    </div>
+                </div>
+                <div class="form-group row" id="bms1" style="display: none">
+                    <div class="col-sm-6 mb-3 mb-sm-0" style="display: flex; margin-top: 24px">
+                        <label for="BMS_Type1"></label>
+                            <select class="form-control" id="BMS_Type1" name="BMS_Type1">
+                                {% for bms in bmstype %}
+                                    <option>{{ bms }}</option>
+                                {% endfor %}
+                            </select>
+                        <label for="BMSType1"></label>
+                            <select class="form-control" id="BMSType1" name="BMSType1">
+                                <option>Simple</option>
+                                <option>Smart</option>
+                            </select>
+                    </div>
+                    <div class="col-sm-6" style="display: flex; margin-top: 24px">
+                        <label for="BMS_qty1"></label>
+                        <input type="float" class="form-control form-control-user" id="BMS_qty1" name="BMS_qty1"
+                               placeholder="BMS Quantity">
+                        <label for="BMS_pup1"></label>
+                        <input type="float" class="form-control form-control-user" id="BMS_pup1" name="BMS_pup1"
+                               placeholder="BMS Price">
+                    </div>
+                </div>
+                <div class="form-group row" id="bms2" style="display: none">
+                    <div class="col-sm-6 mb-3 mb-sm-0" style="display: flex; margin-top: 24px">
+                        <label for="BMS_Type2"></label>
+                            <select class="form-control" id="BMS_Type2" name="BMS_Type2">
+                                {% for bms in bmstype %}
+                                    <option>{{ bms }}</option>
+                                {% endfor %}
+                            </select>
+                        <label for="BMSType2"></label>
+                            <select class="form-control" id="BMSType2" name="BMSType2">
+                                <option>Simple</option>
+                                <option>Smart</option>
+                            </select>
+                    </div>
+                    <div class="col-sm-6" style="display: flex; margin-top: 24px">
+                        <label for="BMS_qty2"></label>
+                        <input type="float" class="form-control form-control-user" id="BMS_qty2" name="BMS_qty2"
+                               placeholder="BMS Quantity">
+                        <label for="BMS_pup2"></label>
+                        <input type="float" class="form-control form-control-user" id="BMS_pup2" name="BMS_pup2"
+                               placeholder="BMS Price">
+                    </div>
+                </div>
+            </div>
+            <div class="battery_pack box" style="display: contents;">
+                <div class="form-group row">
+                    <div class="col-sm-6 mb-3 mb-sm-0">
+                        <label for="Battery_pack"></label>
+                            <select class="form-control" id="Battery_pack" name="Battery_pack">
+                                {% for batt in batterypack %}
+                                    <option>{{ batt }}</option>
+                                {% endfor %}
+                            </select>
+                    </div>
+                    <div class="col-sm-6" style="display: flex; margin-top: 24px">
+                        <label for="Battery_pack_qty"></label>
+                        <input type="float" class="form-control form-control-user" id="Battery_pack_qty" name="Battery_pack_qty"
+                               placeholder="Battery Pack Quantity">
+                        <label for="Battery_pack_pup"></label>
+                        <input type="float" class="form-control form-control-user" id="Battery_pack_pup" name="Battery_pack_pup"
+                               placeholder="Battery Pack Price">
+                    </div>
+                </div>
+            </div>
+            <div class="bike_pack box" style="display: contents;">
+                <div class="form-group row">
+                    <div class="col-sm-6 mb-3 mb-sm-0">
+                        <label for="Bike_pack"></label>
+                            <select class="form-control" id="Bike_pack" name="Bike_pack">
+                                {% for bike in bikepack %}
+                                    <option>{{ bike }}</option>
+                                {% endfor %}
+                            </select>
+                    </div>
+                    <div class="col-sm-6" style="display: flex; margin-top: 24px">
+                        <label for="Bike_pack_qty"></label>
+                        <input type="float" class="form-control form-control-user" id="Bike_pack_qty" name="Bike_pack_qty"
+                               placeholder="Bike Pack Quantity">
+                        <label for="Bike_pack_pup"></label>
+                        <input type="float" class="form-control form-control-user" id="Bike_pack_pup" name="Bike_pack_pup"
+                               placeholder="Bike Pack Price">
+                    </div>
+                </div>
+            </div>
+            <div class="bike_accessory box" style="display: contents;">
+                <div class="form-group row">
+                    <div class="col-sm-6 mb-3 mb-sm-0">
+                        <label for="motor_type"></label>
+                            <select class="form-control" id="motor_type" name="motor_type">
+                                {% for mtr in motor %}
+                                    <option>{{ mtr }}</option>
+                                {% endfor %}
+                            </select>
+                    </div>
+                    <div class="col-sm-6" style="display: flex; margin-top: 24px">
+                        <label for="motor_qty"></label>
+                        <input type="float" class="form-control form-control-user" id="motor_qty" name="motor_qty"
+                               placeholder="Motor Quantity">
+                        <label for="motor_pup"></label>
+                        <input type="float" class="form-control form-control-user" id="motor_pup" name="motor_pup"
+                               placeholder="Motor Price">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-6 mb-3 mb-sm-0">
+                        <label for="controller_type"></label>
+                            <select class="form-control" id="controller_type" name="controller_type">
+                                {% for ctr in controller %}
+                                    <option>{{ ctr }}</option>
+                                {% endfor %}
+                            </select>
+                    </div>
+                    <div class="col-sm-6" style="display: flex; margin-top: 24px">
+                        <label for="controller_qty"></label>
+                        <input type="float" class="form-control form-control-user" id="controller_qty" name="controller_qty"
+                               placeholder="Controller Quantity">
+                        <label for="controller_pup"></label>
+                        <input type="float" class="form-control form-control-user" id="controller_pup" name="controller_pup"
+                               placeholder="Controller Price">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-6 mb-3 mb-sm-0" style="display: flex; margin-top: 24px">
+                        <label for="throttle"></label>
+                        <input type="float" class="form-control form-control-user" id="throttle" name="throttle"
+                               placeholder="Throttle Quantity">
+                        <label for="throttle_pup"></label>
+                        <input type="float" class="form-control form-control-user" id="throttle_pup" name="throttle_pup"
+                               placeholder="Throttle Price">
+                    </div>
+                    <div class="col-sm-6" style="display: flex; margin-top: 24px">
+                        <label for="brake"></label>
+                        <input type="float" class="form-control form-control-user" id="brake" name="brake"
+                               placeholder="Brake Quantity">
+                        <label for="brake_pup"></label>
+                        <input type="float" class="form-control form-control-user" id="brake_pup" name="brake_pup"
+                               placeholder="Brake Price">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-6 mb-3 mb-sm-0" style="display: flex; margin-top: 24px">
+                        <label for="spokes"></label>
+                        <input type="float" class="form-control form-control-user" id="spokes" name="spokes"
+                               placeholder="Spokes Quantity">
+                        <label for="spokes_pup"></label>
+                        <input type="float" class="form-control form-control-user" id="spokes_pup" name="spokes_pup"
+                               placeholder="spokes_pup Price">
+                    </div>
+                </div>
+            </div>
+            <div class="battery_accessory box" style="display: contents;">
+                <div class="form-group row">
+                    <div class="col-sm-6 mb-3 mb-sm-0" style="display: flex; margin-top: 24px">
+                        <label for="enclosure"></label>
+                        <input type="float" class="form-control form-control-user" id="enclosure" name="enclosure"
+                               placeholder="Enclosure Quantity">
+                        <label for="enclosure_pup"></label>
+                        <input type="float" class="form-control form-control-user" id="enclosure_pup" name="enclosure_pup"
+                               placeholder="Enclosure Price">
+                    </div>
+                    <div class="col-sm-6" style="display: flex; margin-top: 24px">
+                        <label for="thimble"></label>
+                        <input type="float" class="form-control form-control-user" id="thimble" name="thimble"
+                               placeholder="Thimble Quantity">
+                        <label for="thimble_pup"></label>
+                        <input type="float" class="form-control form-control-user" id="thimble_pup" name="thimble_pup"
+                               placeholder="Thimble Price">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-6 mb-3 mb-sm-0" style="display: flex; margin-top: 24px">
+                        <label for="breaker"></label>
+                        <input type="float" class="form-control form-control-user" id="breaker" name="breaker"
+                               placeholder="Breaker Quantity">
+                        <label for="breaker_pup"></label>
+                        <input type="float" class="form-control form-control-user" id="breaker_pup" name="breaker_pup"
+                               placeholder="Breaker Price">
+                    </div>
+                    <div class="col-sm-6" style="display: flex; margin-top: 24px">
+                        <label for="display"></label>
+                        <input type="float" class="form-control form-control-user" id="display" name="display"
+                               placeholder="Display Quantity">
+                        <label for="display_pup"></label>
+                        <input type="float" class="form-control form-control-user" id="display_pup" name="display_pup"
+                               placeholder="Display Price">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-6 mb-3 mb-sm-0" style="display: flex; margin-top: 24px">
+                        <label for="B_Connector"></label>
+                        <input type="float" class="form-control form-control-user" id="B_Connector" name="B_Connector"
+                               placeholder="Banana Connector Quantity">
+                        <label for="B_Connector_pup"></label>
+                        <input type="float" class="form-control form-control-user" id="B_Connector_pup" name="B_Connector_pup"
+                               placeholder="Banana Connector Price">
+                    </div>
+                    <div class="col-sm-6" style="display: flex; margin-top: 24px">
+                        <label for="wire"></label>
+                        <input type="float" class="form-control form-control-user" id="wire" name="wire"
+                               placeholder="Wire Quantity">
+                        <label for="wire_pup"></label>
+                        <input type="float" class="form-control form-control-user" id="wire_pup" name="wire_pup"
+                               placeholder="Wire Price">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-6 mb-3 mb-sm-0">
+                    <label for="User"></label>
+                        <input type="hidden" class="form-control form-control-user" id="User" name="User"
+                               value="{{ activeuser }}">
+                </div>
+            </div>
+
+            <button type="submit" value="submit" class="btn btn-primary mb-2">Submit</button>
+            <div style="text-align: end;font-weight: bold">
+                <label for="total_expenses1" style="text-align: right;">Total:- </label>
+                <span id="total_expenses1"></span>
+            </div>
+        </form>
+    </div>
+    <!-- /.container-fluid -->
+{% endblock content%}
+
+{% block ScriptBlock %}
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#color-selector").change(function () {
+                $(this)
+                    .find("option:selected")
+                    .each(function () {
+                        var optionValue = $(this).attr("value");
+                        if (optionValue) {
+                            $(".box")
+                                .not("." + optionValue)
+                                .hide();
+                            $("." + optionValue).show();
+                        } else {
+                            $(".box").hide();
+                        }
+                    });
+            }).change();
+        });
+    </script>
+    <script>
+        $('input').on('input', function() { // run anytime the value changes
+            var Cell_qty  = Number($('#Cell_qty').val());
+            var Cell_pup = Number($('#Cell_pup').val());
+            var Cell_qty1  = Number($('#Cell_qty1').val());
+            var Cell_pup1 = Number($('#Cell_pup1').val());
+            var Cell_qty2  = Number($('#Cell_qty2').val());
+            var Cell_pup2 = Number($('#Cell_pup2').val());
+            var Cell_qty3  = Number($('#Cell_qty3').val());
+            var Cell_pup3 = Number($('#Cell_pup3').val());
+            var Cell_qty4  = Number($('#Cell_qty4').val());
+            var Cell_pup4 = Number($('#Cell_pup4').val());
+            var BMS_qty  = Number($('#BMS_qty').val());
+            var BMS_pup = Number($('#BMS_pup').val());
+            var BMS_qty1  = Number($('#BMS_qty1').val());
+            var BMS_pup1 = Number($('#BMS_pup1').val());
+            var BMS_qty2  = Number($('#BMS_qty2').val());
+            var BMS_pup2 = Number($('#BMS_pup2').val());
+            var Battery_pack_qty  = Number($('#Battery_pack_qty').val());
+            var Battery_pack_pup = Number($('#Battery_pack_pup').val());
+            var Bike_pack_qty  = Number($('#Bike_pack_qty').val());
+            var Bike_pack_pup = Number($('#Bike_pack_pup').val());
+            var motor_qty  = Number($('#motor_qty').val());
+            var motor_pup = Number($('#motor_pup').val());
+            var controller_qty  = Number($('#controller_qty').val());
+            var controller_pup = Number($('#controller_pup').val());
+            var throttle  = Number($('#throttle').val());
+            var throttle_pup = Number($('#throttle_pup').val());
+            var brake  = Number($('#brake').val());
+            var brake_pup = Number($('#brake_pup').val());
+            var spokes  = Number($('#spokes').val());
+            var spokes_pup = Number($('#spokes_pup').val());
+            var enclosure  = Number($('#enclosure').val());
+            var enclosure_pup = Number($('#enclosure_pup').val());
+            var breaker  = Number($('#breaker').val());
+            var breaker_pup = Number($('#breaker_pup').val());
+            var display  = Number($('#display').val());
+            var display_pup = Number($('#display_pup').val());
+            var B_Connector  = Number($('#B_Connector').val());
+            var B_Connector_pup = Number($('#B_Connector_pup').val());
+            var wire  = Number($('#wire').val());
+            var wire_pup = Number($('#wire_pup').val());
+            var thimble  = Number($('#thimble').val());
+            var thimble_pup = Number($('#thimble_pup').val());
+            if(document.getElementById("tax").checked) {
+                var tax = 0.17;
+            } else {
+                tax = 0;
+            }
+            var otheramount = Number($('#otheramount').val());
+            var subtotal = (Cell_qty * Cell_pup) + (Cell_qty1 * Cell_pup1) + (Cell_qty2 * Cell_pup2) + (Cell_qty3 * Cell_pup3) +
+                (Cell_qty4 * Cell_pup4) + (BMS_qty * BMS_pup) + (BMS_qty1 * BMS_pup1) + (BMS_qty2 * BMS_pup2) +
+                (Battery_pack_qty * Battery_pack_pup) + (Bike_pack_qty * Bike_pack_pup) +
+                (motor_qty * motor_pup) + (controller_qty * controller_pup) + (throttle * throttle_pup) + (brake * brake_pup) +
+                (spokes * spokes_pup) + (enclosure * enclosure_pup) + (breaker * breaker_pup) + (display * display_pup) +
+                (B_Connector * B_Connector_pup) + (wire * wire_pup) + (thimble * thimble_pup);
+            var total = tax * subtotal;
+            $('#total_expenses1').html(total + otheramount + subtotal); // add them and output it
+            // add them and output it
+        });
+
+        cells = document.getElementsByClassName("addcell");
+        cells[0].addEventListener('click', function() {
+            for (var i = 1; i <= 4; i++) {
+                var id = 'cell' + i;
+                var element = document.getElementById(id);
+                var setting = (element) ? element.style.display : '';
+
+                if (setting == 'none') {
+                    element.style.display = 'flex';
+                    break;
+                }
+            }
+        });
+
+        bms = document.getElementsByClassName("addbms");
+        bms[0].addEventListener('click', function() {
+            for (var i = 1; i <= 2; i++) {
+                var id = 'bms' + i;
+                var element = document.getElementById(id);
+                var setting = (element) ? element.style.display : '';
+
+                if (setting == 'none') {
+                    element.style.display = 'flex';
+                    break;
+                }
+            }
+        });
+    </script>
+    <script>
+        function setInputDate(_id){
+            var _dat = document.querySelector(_id);
+            var hoy = new Date(),
+                d = hoy.getDate(),
+                m = hoy.getMonth()+1,
+                y = hoy.getFullYear(),
+                data;
+
+            if(d < 10){
+                d = "0"+d;
+            };
+            if(m < 10){
+                m = "0"+m;
+            };
+
+            data = y+"-"+m+"-"+d;
+            console.log(data);
+            _dat.value = data;
+        };
+
+        setInputDate("#DatePur");
+    </script>
+{% endblock ScriptBlock %}

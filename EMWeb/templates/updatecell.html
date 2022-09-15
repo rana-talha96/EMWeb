@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block title %}- Add Device {% endblock title %}
+{% load static %}
+
+{% block content %}
+
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+        <h6 class="m-0 font-weight-bold text-primary">Cell Detail Agianst ID = {{ Cell.id }}</h6>
+        <form action="../../updatecellrecord/{{ Cell.id }}" method="post">
+            {% csrf_token %}
+            <div class="form-group row">
+                <div class="col-sm-6 mb-3 mb-sm-0">
+                <br>
+                    <select class="form-control" id="Cell_Type" name="Cell_Type">
+                            <option>{{ Cell.Cell_Type }}</option>
+                        {% for count in Cell_Typee %}
+                            <option>{{ count }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-sm-6">
+                    <label for="Cell_qty"></label>
+                    <input type="text" class="form-control form-control-user" id="Cell_qty" name="Cell_qty"
+                           placeholder="Enter Cell Quantity" value="{{ Cell.Cell_qty|floatformat:"0" }}" required>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-6 mb-3 mb-sm-0">
+                    <label for="Cell_price"></label>
+                    <input type="text" class="form-control form-control-user" id="Cell_price" name="Cell_price"
+                           placeholder="Cells Price" value="{{ Cell.Cell_price|floatformat:"0" }}">
+                </div>
+                <div class="col-sm-6 mb-3 mb-sm-0">
+                    <label for="CellInvoiceNo"></label>
+                    <input type="float" class="form-control form-control-user" id="CellInvoiceNo" name="CellInvoiceNo"
+                           placeholder="Enter Invoice Number" value="{{ Cell.CellInvoiceNo }}">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-6 mb-3 mb-sm-0">
+                    <label for="CellDescription"></label>
+                    <input type="text" class="form-control form-control-user" id="CellDescription" name="CellDescription"
+                           placeholder="Enter Description" value="{{ Cell.CellDescription }}">
+                </div>
+            </div>
+            <button type="submit" value="submit" class="btn btn-primary mb-2">Submit</button>
+        </form>
+    </div>
+    <!-- /.container-fluid -->
+{% endblock content%}
+
+{% block ScriptBlock %}
+
+{% endblock ScriptBlock %}

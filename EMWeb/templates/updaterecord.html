@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% block title %}- Add Device {% endblock title %}
+{% load static %}
+
+{% block content %}
+
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+        <h6 class="m-0 font-weight-bold text-primary">Battery Detail Agianst ID = {{ battery.id }}</h6>
+        <form action="../../updaterecord/{{ battery.id }}" method="post">
+            {% csrf_token %}
+            <div class="form-group row">
+{#                <div class="col-sm-6 mb-3 mb-sm-0">#}
+{#                    <label for="id"></label>#}
+{#                    <input type="text" class="form-control form-control-user" id="id" name="id"#}
+{#                           placeholder="Enter ID">#}
+{#                </div>#}
+                <div class="col-sm-6">
+{#                    <label for="exampleFormControlSelect1">Example select</label>#}
+                <br><br>
+                    <select class="form-control" id="BatType" name="BatType">
+
+                            <option>{{ battery.BatType }}</option>
+                        {% for bat in batteries %}
+                            <option>{{ bat }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-6 mb-3 mb-sm-0">
+                    <label for="MaxVolt"></label>
+                    <input type="float" class="form-control form-control-user" id="MaxVolt" name="MaxVolt"
+                           placeholder="Maximum Voltage" value="{{ battery.MaxVolt }}" required>
+                </div>
+                <div class="col-sm-6">
+                    <label for="MinVolt"></label>
+                    <input type="float" class="form-control form-control-user" id="MinVolt" name="MinVolt"
+                           placeholder="Minimum Voltage" value="{{ battery.MinVolt }}" required>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-6 mb-3 mb-sm-0">
+                    <label for="MaxAmp"></label>
+                    <input type="float" class="form-control form-control-user" id="MaxAmp" name="MaxAmp"
+                           placeholder="Maximum Ampere" value="{{ battery.MaxAmp }}" required>
+                </div>
+                <div class="col-sm-6">
+                    <label for="MinAmp"></label>
+                    <input type="float" class="form-control form-control-user" id="MinAmp" name="MinAmp"
+                           placeholder="Minimum Apmere" value="{{ battery.MinAmp }}" required>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-6 mb-3 mb-sm-0">
+                    <label for="SCMaxVolt"></label>
+                    <input type="float" class="form-control form-control-user" id="SCMaxVolt" name="SCMaxVolt"
+                           placeholder="Single Cell Maximum Voltage" value="{{ battery.SCMaxVolt }}" required>
+                </div>
+                <div class="col-sm-6">
+                    <label for="SCMinVolt"></label>
+                    <input type="float" class="form-control form-control-user" id="SCMinVolt" name="SCMinVolt"
+                           placeholder="Single Cell Minimum Voltage" value="{{ battery.SCMinVolt }}" required>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-6 mb-3 mb-sm-0">
+                    <label for="Temp"></label>
+                    <input type="float" class="form-control form-control-user" id="Temp" name="Temp"
+                           placeholder="Temperature" value="{{ battery.Temp }}" required>
+                </div>
+                <div class="col-sm-6">
+                    <label for="Manf_ID"></label>
+                    <input type="text" class="form-control form-control-user" id="Manf_ID" name="Manf_ID"
+                           placeholder="Manufacture ID" value="{{ battery.Manf_ID }}" required>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-6 mb-3 mb-sm-0">
+                    <label for="Latitude"></label>
+                    <input type="text" class="form-control form-control-user" id="Latitude" name="Latitude"
+                           placeholder="Latitude" value="{{ battery.Latitude }}" required>
+                </div>
+                <div class="col-sm-6">
+                    <label for="Longitude"></label>
+                    <input type="text" class="form-control form-control-user" id="Longitude" name="Longitude"
+                           placeholder="Longitude" value="{{ battery.Longitude }}" required>
+                </div>
+            </div>
+
+            <button type="submit" value="submit" class="btn btn-primary mb-2">Submit</button>
+        </form>
+    </div>
+    <!-- /.container-fluid -->
+{% endblock content%}
+
+{% block ScriptBlock %}
+
+{% endblock ScriptBlock %}

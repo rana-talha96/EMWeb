@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block title %}- Add Device {% endblock title %}
+{% load static %}
+
+{% block content %}
+
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+        <h6 class="m-0 font-weight-bold text-primary">Bike Kit Detail Agianst ID = {{ bike.id }}</h6>
+        <form action="../../updatebikerecord/{{ bike.id }}" method="post">
+            {% csrf_token %}
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <label for="Bike_pack"></label>
+                    <select class="form-control" id="Bike_pack" name="Bike_pack">
+                        <option>{{ bike.Bike_pack }}</option>
+                        {% for bike in biketype %}
+                            <option>{{ bike }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-sm-6 mb-3 mb-sm-0">
+                    <label for="Bike_pack_qty"></label>
+                    <input type="float" class="form-control form-control-user" id="Bike_pack_qty" name="Bike_pack_qty"
+                           placeholder="Bike-Kit Quantity" value="{{ bike.Bike_pack_qty|floatformat:"0" }}">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-6 mb-3 mb-sm-0">
+                    <label for="Bike_pack_price"></label>
+                    <input type="float" class="form-control form-control-user" id="Bike_pack_price" name="Bike_pack_price"
+                           placeholder="Bike Price" value="{{ bike.Bike_pack_price|floatformat:"0" }}">
+                </div>
+                <div class="col-sm-6 mb-3 mb-sm-0">
+                    <label for="BikeInvoiceNo"></label>
+                    <input type="text" class="form-control form-control-user" id="BikeInvoiceNo" name="BikeInvoiceNo"
+                           placeholder="Enter Invoice Number" value="{{ bike.BikeInvoiceNo }}">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-6 mb-3 mb-sm-0">
+                    <label for="BikeDescription"></label>
+                    <input type="text" class="form-control form-control-user" id="BikeDescription" name="BikeDescription"
+                           placeholder="Enter Description" value="{{ bike.BikeDescription }}">
+                </div>
+            </div>
+            <button type="submit" value="submit" class="btn btn-primary mb-2">Submit</button>
+        </form>
+    </div>
+    <!-- /.container-fluid -->
+{% endblock content%}
+
+{% block ScriptBlock %}
+
+{% endblock ScriptBlock %}

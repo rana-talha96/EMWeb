@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% block title %}- Battery Details {% endblock title %}
+
+{% load static %}
+{% block CSSBlock %}
+    <link rel="stylesheet" href="{% static 'posAPP/assets/material-admin/css/demo/style.css' %}">
+{% endblock CSSBlock %}
+{% block content %}
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Total Installed Devices Detail</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+{#                    <input type="text" onkeyup="searchFun()" class="form-control" id="searchField" aria-describedby="emailHelp" placeholder="Enter Name">#}
+{#                    <br>#}
+                    <table class="table table-bordered" id="dataTable" cellspacing="0">
+                        <thead>
+                            <tr class="header">
+                                <th>Sr.</th>
+                                <th>Batery Type</th>
+                                <th>Max Voltage</th>
+                                <th>Min Voltage</th>
+                                <th>Max Current</th>
+                                <th>Min Current</th>
+                                <th>Single Cell Max Voltage</th>
+                                <th>Single Cell Min Voltage</th>
+                                <th>Tempreture</th>
+                                <th>Date Purchase</th>
+                                <th>Date Update</th>
+                                <th>Latitude</th>
+                                <th>Longitude</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>Sr.</th>
+                                <th>Batery Type</th>
+                                <th>Max Voltage</th>
+                                <th>Min Voltage</th>
+                                <th>Max Current</th>
+                                <th>Min Current</th>
+                                <th>Single Cell Max Voltage</th>
+                                <th>Single Cell Min Voltage</th>
+                                <th>Tempreture</th>
+                                <th>Date Purchase</th>
+                                <th>Date Update</th>
+                                <th>Latitude</th>
+                                <th>Longitude</th>
+                                <th>Action</th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            {% for bat in battery %}
+                                <tr>
+                                    <td>{{bat.id}}</td>
+                                    <td>{{bat.BatType}}</td>
+                                    <td>{{bat.MaxVolt}} V</td>
+                                    <td>{{bat.MinVolt}} V</td>
+                                    <td>{{bat.MaxAmp}} A</td>
+                                    <td>{{bat.MinAmp}} A</td>
+                                    <td>{{bat.SCMaxVolt}} V</td>
+                                    <td>{{bat.SCMinVolt}} V</td>
+                                    <td>{{bat.Temp}}°</td>
+                                    <td>{{bat.DatePur|date:"M d, Y"}}</td>
+                                    <td>{{bat.date_update|date:"M d, Y"}}</td>
+                                    <td>{{bat.Latitude}}</td>
+                                    <td>{{bat.Longitude}}</td>
+                                    <td class="text-center">
+                                        <button class="mdc-button mdc-button--raised p-1 icon-button filled-button--light mdc-ripple-upgraded edit-data" title="Edit">
+                                            <a href='/sale/{{ bat.id }}/' style="color: inherit; text-decoration: none"><i class="material-icons mdc-button__icon">edit</i></a>
+                                        </button>
+                                        <button class="mdc-button mdc-button--raised p-1 icon-button filled-button--danger mdc-ripple-upgraded delete-data" type="button" data-id="{{ bat.id }}" data-code="{{ bat.Manf_ID }}" title="Delete">
+                                            <a href='/deletecharger/{{ bat.id }}' style="color: inherit; text-decoration: none"><i class="material-icons mdc-button__icon">deleteoutline</i></a>
+                                        </button>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.container-fluid -->
+
+{% endblock content%}

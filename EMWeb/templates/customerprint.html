@@ -1,0 +1,364 @@
+{% extends 'base.html' %}
+{% block title %}- {{ Customer.customer_name }} {% endblock title %}
+{% load static %}
+{% load humanize %}
+{% block CSSBlock %}
+    <link rel="stylesheet" href="{% static 'posAPP/assets/material-admin/css/demo/style.css' %}?{% now "U" %}">
+    <style>
+        .printArea {
+          text-align: center;
+          font-size: 40px;
+          color: #23285f;
+          font-weight: bold;
+        }
+    </style>
+{% endblock CSSBlock %}
+
+{% block content %}
+
+    <!-- Begin Page Content -->
+
+    <div class="container-fluid">
+
+        <div style="text-align: end;margin-bottom: 15px;">
+            <button class="mdc-button mdc-button--raised p-1 icon-button filled-button--light mdc-ripple-upgraded view-data" onclick="printPageArea('printableArea')" type="button" data-id="{{ Customer.id }}" title="Print" style="margin-left: 25px;">
+                <i class="material-icons mdc-button__icon">receipt</i>
+            </button>
+            <button class="mdc-button mdc-button--raised p-1 icon-button filled-button--light mdc-ripple-upgraded edit-data" title="Edit" style="color: inherit; text-decoration: none">
+                <a href='/customerupdate/{{ Customer.id }}/'><i class="material-icons mdc-button__icon">edit</i></a>
+            </button>
+            <button class="mdc-button mdc-button--raised p-1 icon-button filled-button--danger mdc-ripple-upgraded delete-data" type="button" data-id="{{ Customer.id }}" data-code="{{ Customer.Ship_No }}" title="Delete">
+                <a href='/deletecustomer/{{ Customer.id }}' style="color: inherit; text-decoration: none"><i class="material-icons mdc-button__icon">deleteoutline</i></a>
+            </button>
+        </div>
+        <!-- DataTales Example -->
+        <div id="printableArea" class="card shadow mb-4">
+            <table class="table-striped table-responsive-xxl" style="color: black !important;">
+                <thead>
+                <tr class="header">
+                    <th colspan="4" style="text-align: left;"><img src="{% static 'img/logoprint.jpg' %}?{% now "U" %}"></th>
+                </tr>
+                </thead>
+                <thead>
+                <tr>
+                    <td colspan="4" class="printArea" >Invoice</td>
+                </tr>
+                <tr>
+                    <td colspan="2">Plaza No.246, 3rd Floor, Spring North</td>
+                    <td style="text-align: right; padding-right: 30px;">DATE</td>
+                    <td style="text-align: center; border: 1px solid black">{{ Customer.DatePur|date:"j M, Y" }}</td>
+                </tr>
+                <tr>
+                    <td colspan="2">Phase 7, Bahria Town, Islamabad</td>
+                    <td style="text-align: right; padding-right: 30px;">Invoice No.</td>
+                    <td style="text-align: center; border: 1px solid black">{{ Customer.Ship_No }}</td>
+                </tr>
+                <tr>
+                    <td colspan="4">Phone: [051-4499326]</td>
+                </tr>
+                <tr>
+                    <td colspan="4">Email:  danish@jointech.com.hk</td>
+                </tr>
+                <tr>
+                    <td style="background-color: #23285f; color: white; font-size: 20px; font-weight: 500; width: 50%">CUSTOMER</td>
+                </tr>
+                <tr>
+                    <td>{{ Customer.customer_name }} - {{ Customer.customer_type }}</td>
+                </tr>
+                <tr>
+                    <td>{{ Customer.customer_number }}</td>
+                </tr>
+                <tr>
+                    <td>{{ Customer.customer_address }}</td>
+                </tr>
+                <tr><td style="color: transparent">A</td><td></td><td></td><td></td></tr>
+                </thead>
+                <tbody>
+{#                    <tr>#}
+{#                        <td colspan="2">Payment Charges</td>#}
+{#                        <td>Rs. {{ Customer.price|floatformat:"0"|intcomma }}</td>#}
+{#                    </tr>#}
+{#                    <tr>#}
+{#                        <td colspan="2">Payment Method</td>#}
+{#                        <td>{{ Customer.payment_type }}</td>#}
+{#                    </tr>#}
+{#                    <tr>#}
+{#                      <td colspan="2">Delivery Method</td>#}
+{#                      <td>{{ Customer.delivery_type }}</td>#}
+{#                    </tr>#}
+                    <tr>
+                        <td style="background-color: #23285f; color: white; font-size: 20px; font-weight: 500;">Description</td>
+                        <td style="background-color: #23285f; color: white; font-size: 20px; font-weight: 500;">Q</td>
+                        <td style="background-color: #23285f; color: white; font-size: 20px; font-weight: 500; text-align: center">PU</td>
+                        <td style="background-color: #23285f; color: white; font-size: 20px; font-weight: 500; text-align: center">AMOUNT</td>
+                    </tr>
+                    {% if Customer.Cell_qty %}
+                        <tr>
+                            <td>{{ Customer.Cell_Type }}</td>
+                            <td>{{ Customer.Cell_qty|floatformat:"0" }}</td>
+                            <td style="text-align: right">Rs. {{ Customer.Cell_pup|intcomma }}</td>
+                            <td style="text-align: right">Rs. {{ Cell|intcomma }}</td>
+                        </tr>
+                    {% endif %}
+                    {% if Customer.Cell_qty1 %}
+                        <tr>
+                            <td>{{ Customer.Cell_Type1 }}</td>
+                            <td>{{ Customer.Cell_qty1|floatformat:"0" }}</td>
+                            <td style="text-align: right">Rs. {{ Customer.Cell_pup1|intcomma }}</td>
+                            <td style="text-align: right">Rs. {{ Cell1|intcomma }}</td>
+                        </tr>
+                    {% endif %}
+                    {% if Customer.Cell_qty2 %}
+                        <tr>
+                            <td>{{ Customer.Cell_Type2 }}</td>
+                            <td>{{ Customer.Cell_qty2|floatformat:"0" }}</td>
+                            <td style="text-align: right">Rs. {{ Customer.Cell_pup2|intcomma }}</td>
+                            <td style="text-align: right">Rs. {{ Cell2|intcomma }}</td>
+                        </tr>
+                    {% endif %}
+                    {% if Customer.Cell_qty3 %}
+                        <tr>
+                            <td>{{ Customer.Cell_Type3 }}</td>
+                            <td>{{ Customer.Cell_qty3|floatformat:"0" }}</td>
+                            <td style="text-align: right">Rs. {{ Customer.Cell_pup3|intcomma }}</td>
+                            <td style="text-align: right">Rs. {{ Cell3|intcomma }}</td>
+                        </tr>
+                    {% endif %}
+                    {% if Customer.Cell_qty4 %}
+                        <tr>
+                            <td>{{ Customer.Cell_Type4 }}</td>
+                            <td>{{ Customer.Cell_qty4|floatformat:"0" }}</td>
+                            <td style="text-align: right">Rs. {{ Customer.Cell_pup4|intcomma }}</td>
+                            <td style="text-align: right">Rs. {{ Cell4|intcomma }}</td>
+                        </tr>
+                    {% endif %}
+                    {% if Customer.BMS_qty %}
+                        <tr>
+                            <td>{{ Customer.BMS_Type }} - {{ Customer.BMSType }}</td>
+                            <td>{{ Customer.BMS_qty|floatformat:"0" }}</td>
+                            <td style="text-align: right">Rs. {{ Customer.BMS_pup|intcomma }}</td>
+                            <td style="text-align: right">Rs. {{ BMS|intcomma }}</td>
+                        </tr>
+                    {% endif %}
+                    {% if Customer.BMS_qty1 %}
+                        <tr>
+                            <td>{{ Customer.BMS_Type1 }} - {{ Customer.BMSType1 }}</td>
+                            <td>{{ Customer.BMS_qty1|floatformat:"0" }}</td>
+                            <td style="text-align: right">Rs. {{ Customer.BMS_pup1|intcomma }}</td>
+                            <td style="text-align: right">Rs. {{ BMS1|intcomma }}</td>
+                        </tr>
+                    {% endif %}
+                    {% if Customer.BMS_qty2 %}
+                        <tr>
+                            <td>{{ Customer.BMS_Type2 }} - {{ Customer.BMSType2 }}</td>
+                            <td>{{ Customer.BMS_qty2|floatformat:"0" }}</td>
+                            <td style="text-align: right">Rs. {{ Customer.BMS_pup2|intcomma }}</td>
+                            <td style="text-align: right">Rs. {{ BMS2|intcomma }}</td>
+                        </tr>
+                    {% endif %}
+                    {% if Customer.Battery_pack_qty %}
+                        <tr>
+                            <td>{{ Customer.Battery_pack }}</td>
+                            <td>{{ Customer.Battery_pack_qty|floatformat:"0" }}</td>
+                            <td style="text-align: right">Rs. {{ Customer.Battery_pack_pup|intcomma }}</td>
+                            <td style="text-align: right">Rs. {{ BatteryPack|intcomma }}</td>
+                        </tr>
+                    {% endif %}
+                    {% if Customer.Bike_pack_qty %}
+                        <tr>
+                            <td>{{ Customer.Bike_pack }}</td>
+                            <td>{{ Customer.Bike_pack_qty|floatformat:"0" }}</td>
+                            <td style="text-align: right">Rs. {{ Customer.Bike_pack_pup|intcomma }}</td>
+                            <td style="text-align: right">Rs. {{ BikePack|intcomma }}</td>
+                        </tr>
+                    {% endif %}
+                    {% if Customer.motor_qty %}
+                        <tr>
+                            <td>{{ Customer.motor_type }}</td>
+                            <td>{{ Customer.motor_qty|floatformat:"0" }}</td>
+                            <td style="text-align: right">Rs. {{ Customer.motor_pup|intcomma }}</td>
+                            <td style="text-align: right">Rs. {{ Motor|intcomma }}</td>
+                        </tr>
+                    {% endif %}
+                    {% if Customer.controller_qty %}
+                        <tr>
+                            <td>{{ Customer.controller_type }}</td>
+                            <td>{{ Customer.controller_qty|floatformat:"0" }}</td>
+                            <td style="text-align: right">Rs. {{ Customer.controller_pup|intcomma }}</td>
+                            <td style="text-align: right">Rs. {{ Controller|intcomma }}</td>
+                        </tr>
+                    {% endif %}
+                    {% if Customer.throttle %}
+                        <tr>
+                            <td>Throttle</td>
+                            <td>{{ Customer.throttle|floatformat:"0" }}</td>
+                            <td style="text-align: right">Rs. {{ Customer.throttle_pup|intcomma }}</td>
+                            <td style="text-align: right">Rs. {{ Throttle|intcomma }}</td>
+                        </tr>
+                    {% endif %}
+                    {% if Customer.brake %}
+                        <tr>
+                            <td>Brakes</td>
+                            <td>{{ Customer.brake|floatformat:"0" }}</td>
+                            <td style="text-align: right">Rs. {{ Customer.brake_pup|intcomma }}</td>
+                            <td style="text-align: right">Rs. {{ Brake|intcomma }}</td>
+                        </tr>
+                    {% endif %}
+                    {% if Customer.spokes %}
+                        <tr>
+                            <td>Spokes</td>
+                            <td>{{ Customer.spokes|floatformat:"0" }}</td>
+                            <td style="text-align: right">Rs. {{ Customer.spokes_pup|intcomma }}</td>
+                            <td style="text-align: right">Rs. {{ Spokes|intcomma }}</td>
+                        </tr>
+                    {% endif %}
+                    {% if Customer.enclosure %}
+                        <tr>
+                            <td>Enclosure</td>
+                            <td>{{ Customer.enclosure|floatformat:"0" }}</td>
+                            <td style="text-align: right">Rs. {{ Customer.enclosure_pup|intcomma }}</td>
+                            <td style="text-align: right">Rs. {{ Enclosure|intcomma }}</td>
+                        </tr>
+                    {% endif %}
+                    {% if Customer.breaker %}
+                        <tr>
+                            <td>Breaker</td>
+                            <td>{{ Customer.breaker|floatformat:"0" }}</td>
+                            <td style="text-align: right">Rs. {{ Customer.breaker_pup|intcomma }}</td>
+                            <td style="text-align: right">Rs. {{ Breaker|intcomma }}</td>
+                        </tr>
+                    {% endif %}
+                    {% if Customer.display %}
+                        <tr>
+                            <td>Digital Display</td>
+                            <td>{{ Customer.display|floatformat:"0" }}</td>
+                            <td style="text-align: right">Rs. {{ Customer.display_pup|intcomma }}</td>
+                            <td style="text-align: right">Rs. {{ Display|intcomma }}</td>
+                        </tr>
+                    {% endif %}
+                    {% if Customer.B_Connector %}
+                        <tr>
+                            <td>Banana Connector</td>
+                            <td>{{ Customer.B_Connector|floatformat:"0" }}</td>
+                            <td style="text-align: right">Rs. {{ Customer.B_Connector_pup|intcomma }}</td>
+                            <td style="text-align: right">Rs. {{ B_Connector|intcomma }}</td>
+                        </tr>
+                    {% endif %}
+                    {% if Customer.wire %}
+                        <tr>
+                            <td>Wire</td>
+                            <td>{{ Customer.wire|floatformat:"0" }}</td>
+                            <td style="text-align: right">Rs. {{ Customer.wire_pup|intcomma }}</td>
+                            <td style="text-align: right">Rs. {{ Wire|intcomma }}</td>
+                        </tr>
+                    {% endif %}
+                    {% if Customer.thimble %}
+                        <tr>
+                            <td>Thimble</td>
+                            <td>{{ Customer.thimble|floatformat:"0" }}</td>
+                            <td style="text-align: right">Rs. {{ Customer.thimble_pup|intcomma }}</td>
+                            <td style="text-align: right">Rs. {{ Thimble|intcomma }}</td>
+                        </tr>
+                    {% endif %}
+                    <tr><td style="color: transparent">A</td><td></td><td></td><td></td></tr>
+                    <tr><td style="color: transparent">A</td><td></td><td></td><td></td></tr>
+                    <tr>
+                        <td colspan="4">{{ Customer.customer_use }}</td>
+                    </tr>
+                </tbody>
+                <thead>
+                    <tr style="border-top: 1px solid black">
+                        <td></td>
+                        <td></td>
+                        <td>Subtotal</td>
+                        <td style="text-align: right">Rs. {{ Price|intcomma }}</td>
+                    </tr>
+                    <tr><td style="color: transparent">A</td><td></td><td></td><td></td></tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>Tax</td>
+                        {% if Customer.tax %}
+                            <td style="text-align: right; border: 1px solid black">Rs. {{ Tax|floatformat:"2"|intcomma }}</td>
+                        {% else %}
+                            <td style="text-align: center; border: 1px solid black"> - </td>
+                        {% endif %}
+                    </tr>
+                    <tr><td style="color: transparent">A</td><td></td><td></td><td></td></tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>Other Amount</td>
+                        {% if Customer.otheramount %}
+                            <td style="text-align: right; border: 1px solid black">Rs. {{ Other|floatformat:"2"|intcomma }}</td>
+                        {% else %}
+                            <td style="text-align: center; border: 1px solid black"> - </td>
+                        {% endif %}
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td style="font-weight: bold; border-top: 4px solid; border-top-style: double">Total Amount</td>
+                        <td style="text-align: right; border-top: 4px solid; border-top-style: double">Rs. {{ Total|floatformat:"2"|intcomma }}</td>
+                    </tr>
+                </thead>
+            </table>
+            <div class="row align-items-center">
+            <div class="col" style="text-align: center;margin-top: 20px;">
+                If you have any questions about this price quote, please contact<br>
+                [Whatsapp # +92-300-5552634, danish@jointech.com.hk]<br>
+                <a href="www.jointech.com.hk">www.jointech.com.hk</a>
+                <h5>Thank You For Your Business!</h5>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="card-footer py-3">
+        <p class="m-0 font-weight-bold" style="text-align: right"><a href="{% url 'customer' %}">Back</a></p>
+    </div>
+    <!-- /.container-fluid -->
+
+{% endblock content%}
+
+{% block ScriptBlock %}
+    <script>
+        function printPageArea(printableArea) {
+            var mywindow = window.open('', 'PRINT');
+
+            mywindow.document.write('<html><head>');
+            mywindow.document.write('<style>\n' +
+                'table {\n' +
+                '  border-collapse: collapse;\n' +
+                '  width: 100%;\n' +
+                '  font-family: "Roboto", sans-serif;\n' +
+                '}\n' +
+                '.printArea {\n' +
+                '  text-align: center;\n' +
+                '  font-size: 40px;\n' +
+                '  color: #23285f;\n' +
+                '  font-weight: bold;\n' +
+                '  font-family: "Roboto", sans-serif;\n' +
+                '}\n' +
+                'th, td {\n' +
+                '  padding: 3px;\n' +
+                '}\n' +
+                '.righttxt {\n' +
+                '   margin-left: 30px;\n' +
+                '}\n' +
+                'tbody tr:nth-child(even) {\n' +
+                '  background-color: #f2f2f2;\n' +
+                '}</style>');
+            mywindow.document.write('</head><body >');
+            mywindow.document.write(document.getElementById(printableArea).innerHTML);
+            mywindow.document.write('</body></html>');
+
+            mywindow.document.close(); // necessary for IE >= 10
+            mywindow.focus(); // necessary for IE >= 10*/
+
+            mywindow.print();
+            mywindow.close();
+
+            return true;
+        }
+    </script>
+{% endblock ScriptBlock %}
